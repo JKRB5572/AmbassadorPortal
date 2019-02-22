@@ -1,0 +1,637 @@
+/* Contents 
+
+* Bootstrap Overrides 
+* General Styling
+* General Layout
+
+* Home & Login Pages
+   * Portal Heading
+   * Portal Home
+   * Login Page
+   * Admin & Ambassador Homepages
+
+* Core Components
+   * Navigation Bar
+   * Calendar
+      * Calendar Header
+      * Calendar Event Topic Colours
+      * Calendar Scroll Bar
+      * Calendar Panes
+      * List View
+    * My Events
+    * Footer
+
+* Admin Pages
+   * Add Event
+
+* Ambassador Pages
+   * Ambassador Homepage
+   * Jobshop
+
+
+*/
+
+
+@font-face{
+    font-family: "Tee Franklin Light";
+    src: url(/PageComponents/Fonts/TeeFraLig-webfont.woff);
+}
+
+:root{
+    --red: rgb(211, 55, 74);
+    --darkGrey: rgb(47, 68, 78);
+    --lightGrey: rgb(220, 220, 200);
+    --gold: rgb(189, 158, 94);
+    --blue: rgb(21, 44, 81);
+    --primaryPurple: rgb(29, 15, 51);
+    --secondaryPurple: rgb(60, 44, 89);
+}
+
+
+/* Bootstrap Overrides */
+
+.marginlessHeader{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+
+/* MOBILE DEVICE BLOCK */
+
+@media only screen and (max-width: 1080px){
+    nav, .content{
+        display: none;
+    }
+    body::after{
+        content: "This website does not currently support devices with a screen width less than 1080px. Support for such devices will be included in a future update.";
+    }
+}
+
+
+/* General Styling */
+
+    *{
+        box-sizing: content-box;
+    }
+
+    body{
+        font-family: 'Tee Franklin Light','Helvetica Neue',Helvetica,Arial,sans-serif;
+        font-size: 13pt;
+    }
+
+    h1, h2{
+        text-align: center;
+    }
+
+    h2, h4{
+        color: rgb(211, 55, 74);
+    }
+
+    h2{
+        font-size: 25pt;
+    }
+
+    h3{
+        font-size: 20pt;
+    }
+
+    h4{
+        font-size: 18pt;
+    }
+
+    h5{
+        font-size: 16pt;
+    }
+
+    table tr th, table tr td{
+        padding: 5px;
+    }
+
+    table.collapsed tr th, table.collapsed tr td{
+        padding: 0px;
+    }
+
+    a{
+        color: initial;
+    }
+
+    a:hover{
+        color: initial;
+    }
+
+    a, a:hover, a:active, a:visited, a:focus {
+        text-decoration:none;
+    }
+
+    i:hover{
+        cursor: pointer;
+    }
+
+    button{
+        display: inline-block;
+    }
+
+    button:focus, input[type='submit']:focus{
+        outline: 0;
+    }
+
+    button.client-action{
+        font-size: 13pt;
+        background-color: var(--red);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    button.server-action{
+        font-size: 13pt;
+        background-color: var(--secondaryPurple);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 5px;
+        border: none;
+    }
+
+
+
+/* General Layout */
+
+    .content{
+        margin: 0px 20px;
+    }
+
+    .centered-div{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .single-column-layout{
+        width: 100%;
+        clear: both; 
+    }
+
+    .two-column-layout-left{
+        width: 50%;
+        float: left;
+    }
+
+    .two-column-layout-right{
+        width: 50%;
+        float: right;
+    }
+
+    .three-column-layout-row:after{
+        content: "";
+        display: table;
+        clear: both;
+        margin-bottom: 20px;
+    }
+
+    .three-column-layout-left, .three-column-layout-middle, .three-column-layout-right{
+        float: left;
+        width: 32%;
+    }
+
+    table.fullwidth{
+        width: 100%;
+    }
+    
+
+/* Home & Login Pages */
+
+    /* Portal Heading */
+
+        .portal-header{
+            text-align: center;
+            color: white;
+            background-color: rgb(21, 44, 81);
+            top: 0px;
+            margin-bottom: 30px;
+        }
+
+        .portal-header img{
+            float: left;
+            width: 86px;
+            height: 86px;
+            margin: 16px;
+        }
+
+        .portal-header h1{
+            color: white;
+            margin: 0px;
+            padding: 20px 118px 20px 0px;
+        }
+
+    
+    /* Portal Home */
+        
+        .portal-home-ambassador, .portal-home-admin{
+            height: 180px;
+            width: 400px;
+            margin-top: calc(50vh - 149px);
+            background-color: rgb(211, 55, 74);
+            border-radius: 20px;
+        }
+
+        .portal-home-ambassador{
+            margin-left: calc(34vw - 220px);
+            margin-right: calc(16vw - 200px);
+        }
+
+        .portal-home-admin{
+            margin-left: calc(16vw - 200px);
+            margin-right: calc(34vw - 220px);
+        }
+
+        .portal-home-ambassador h4, .portal-home-admin h4{
+            padding-top: 55px;
+            padding-bottom: 55px;
+            color: white;
+            text-align: center;
+            font-size: 24pt;
+        }
+
+    
+    /* Login Page */
+
+        .login-form{
+            margin: 0 auto;
+            width: 410px;
+            margin-top: calc(50vh - (114.4px + 142.5px) ); 
+        }
+
+        .login-form form label{
+            width: 160px;
+            padding-top: 5px;
+            text-align: right;
+            margin-bottom: 5px;
+            font-size: 14pt;
+            line-height: 20px;
+            padding-right: 30px;
+            font-weight: normal;
+        }
+
+        .login-form form input[type='text'], .login-form form input[type='password']{
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.75);
+            transition: border linear .2s, box-shadow linear .2s;
+            font-size: 14px;
+            line-height: 20px;
+            padding: 4px 6px;
+            width: 206px;
+        }
+
+        .login-form form label, .login-form form input[type='password']{
+            margin-top: 15px;
+        }
+
+        .login-form form input[type="submit"]{
+            margin-top: 25px;
+            border: none;
+            text-shadow: none;
+            font-size: 16pt;
+            line-height: 19px;
+            padding: 6px 12px;
+            background: #054fa9;
+            color: white;
+            border-radius: 5px;
+        }
+
+        #loginError{
+            color: red;
+            text-align: center;
+            font-style: italic;
+        }
+
+        #forgottenPassword{
+            text-align: center;
+            margin-top: 50px;
+            font-size: 12pt;
+        }
+
+        #forgottenPassword a{
+            color: #045bc6; 
+        }
+
+    
+    /* Admin & Ambassador Homepages */
+
+        .admin-home a, .ambassador-home a{
+            border-radius: 30px;
+        }
+
+        .admin-home .three-column-layout-row, .ambassador-home .three-column-layout-row{
+            margin-bottom: 30px;
+        }
+
+        .homepage-icon{
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+            height: 280px;
+            width: 280px;
+            color: white;
+            background-color: var(--secondaryPurple);
+            border-radius: 30px;
+        }
+        
+        .homepage-icon i{
+            margin-top: 37.5px;
+            font-size: 150px;
+        }
+
+        .homepage-icon h2{
+            margin-top: 20px;
+            font-weight: bold;
+            color: white;
+            font-size: 32px;
+        }
+
+
+/* Core Components */
+    
+    /* Navigation Bar */
+
+        nav{
+            width: 100%;
+            color: white;
+            background-color: rgb(21, 44, 81);
+            font-size: 15pt;
+            margin-bottom: 30px;
+        }
+
+        nav ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        nav ul li{
+            float: left;
+        }
+
+        nav ul li a{
+            display: block;
+            padding: 7px 15px;
+            text-align: center;
+            color: white;
+            text-decoration: none !important;
+        }
+
+        nav ul li a:hover{
+            color: white;
+            background-color: rgba(211, 55, 74, 0.8);
+        }
+
+        nav ul li a.active{
+            background-color: rgb(211, 55, 74);
+        }
+
+        nav ul li a i{
+            position: relative;
+        }
+
+
+        nav ul li a i[data-notifications]:after{
+            content: attr(data-notifications);
+            font-family: 'Tee Franklin Light','Helvetica Neue',Helvetica,Arial,sans-serif;
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 14px;
+            background: red;
+            color: white;
+            width: 18px;
+            height: 18px;
+            line-height: 18px;
+            text-align:center;
+            border-radius: 50%;
+        }
+
+        nav ul li a i[data-notifications="0"]:after {
+            content: none;
+        }
+    
+
+    /* Calendar */
+
+        table.calendar{
+            margin: 0;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table.calendar tr th{
+            color: gray;
+        }
+
+
+        table.calendar tr td{
+            border-bottom: 1px solid gray;
+            font-size: 13.5pt;
+            padding: 10px 2px 5px 2px;
+        }
+        
+        .calendar-table-div{
+            color: black;
+            font-size: 12pt;
+            margin: 4px;
+        }
+
+        .calendar-event{
+            cursor: pointer;
+            padding: 2px;
+            border-radius: 4px;
+        }
+
+        .calendar-inactive{
+            background-color: rgb(220, 220, 220);
+        }
+
+        #loadingMoreSpinner{
+            position: absolute;
+            z-index: 1;
+            right: calc(37.5% - 22px);
+            bottom: calc(50% - 50.5px);
+        }
+
+        #sendingDataSpinner{
+            position: absolute;
+            z-index: 1;
+            right: calc(37.5% - 22px);
+            bottom: calc(50% - 50.5px);
+        }
+        
+
+        /* Calendar Header */
+
+            .calendar-header div{
+                float: left;
+                margin-bottom: 20px;
+            }
+
+            .calendar-header div:first-of-type, .calendar-header div:last-of-type{
+                width: 20%;
+            }
+
+            .calendar-header div:nth-of-type(2){
+                width: 60%
+            }
+
+            .calendar-header ul{
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            .calendar-header li{
+                float: left;
+                border-radius: 10px;
+                background-color: rgb(220, 220, 220);
+                cursor: pointer;
+            }
+
+            .calendar-header li a{
+                display: block;
+                text-align: center;
+                padding: 6px 12px;
+                text-decoration: none !important;
+            }
+
+            .calendar-header div:last-of-type li:first-of-type{
+                border-radius: 0px 10px 10px 0px;
+            }
+
+            .calendar-header div:last-of-type li:last-of-type{
+                border-radius: 10px 0px 0px 10px;
+            }
+
+            .calendar-header div:first-of-type li a:hover{
+                border-radius: 10px;
+                color: white;
+                background-color: rgb(60, 44, 89);
+            }
+
+
+        /* Calendar Scroll Bar */
+
+            .calendar-view, .list-view{
+                width: 100%;
+                height: 78vh;
+                padding-right: 5px;
+                overflow-y: scroll;
+            }
+            
+            .calendar-view::-webkit-scrollbar, .list-view::-webkit-scrollbar{
+                width: 7px;
+            }
+            
+            .calendar-view::-webkit-scrollbar-track, .list-view::-webkit-scrollbar-track{
+                visibility: hidden;
+            }
+            
+            .calendar-view::-webkit-scrollbar-thumb, .list-view::-webkit-scrollbar-thumb{
+                border-radius: 10px;
+                background-color: rgba(211, 55, 74);
+            }
+        
+
+        /* Calendar Panes */
+
+            /* Event Filter Pane */
+
+                .event-filter-pane h4, .event-details-pane h4{
+                    text-align: center;
+                    font-weight: 600;
+                    margin-bottom: 20px;
+                }
+
+                .event-filter-pane{
+                    margin-bottom: 30px;
+                    padding-bottom: 10px;
+                    border-bottom: 2px solid lightgray;
+                }
+
+                .event-filter-pane table{
+                    width: 100%;
+                }
+
+
+            /* Event Details Pane */
+
+                .event-details-pane button{
+                    margin: auto;
+                    display: block;
+                    background-color: rgb(60, 44, 89);
+                    border: none;
+                    padding: 5px 15px;
+                    border-radius: 10px;
+                }
+
+                .event-details-pane button a{
+                    color: white;
+                    text-decoration: none;
+                }
+        
+
+        /* List View */
+
+            #listView table{
+                border-collapse: separate;
+                border-spacing: 10px;
+            }
+
+            td.list-view-event{
+                border-bottom: 2px solid gray; /*rgb(211, 55, 74);*/
+                vertical-align: text-top;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .list-view-event h5{
+                font-weight: bold;
+            }
+
+    
+    /* My Events */
+
+        .my-events h4{
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .my-events table{
+            table-layout: fixed;
+            margin-top: 10px;
+            margin-bottom: 50px;
+        }
+
+        .my-events table tr th{
+            padding: 10px 5px 20px 5px;
+            border-bottom: 2px solid gray;
+        }
+        .my-events table tr td{
+            vertical-align: top;
+            padding: 10px 5px 20px 5px;
+            border-bottom: 2px solid gray;
+        }
+
+
+    /* Footer */
+
+        .footer{
+            width: 100%;
+            color: white;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: rgb(21, 44, 81);
+        }

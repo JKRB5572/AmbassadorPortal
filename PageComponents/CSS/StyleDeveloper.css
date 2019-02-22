@@ -1,0 +1,10 @@
+div.developer div.pane{
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid purple;
+    border-radius: 5px;
+}
+
+div.developer div.pane td.action{
+    cursor: pointer;
+}

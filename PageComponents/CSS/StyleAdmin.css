@@ -1,0 +1,440 @@
+/* Contents
+
+* Add-Edit Event
+   * Add Event Progress Bar
+   * Event Form
+   * Event Toolbar
+
+* Event
+   * Event Toolbar
+
+* Calendar Colours
+* Jobshop Confirm
+* My Events
+* Event Ambassadors
+
+*/
+
+/* Add-Edit Event */
+
+    .event-form .previous-next{
+        margin: 0 auto;
+        width: 158.09px;
+        padding: 20px;
+        height: 36px;
+    }
+
+    .event-form .previous-next button.client-action:nth-of-type(1){
+        float: left;
+    }
+
+    .event-form .previous-next button.client-action:nth-of-type(2){
+        float: right;
+    }
+
+
+    /* Add Event Progress Bar */
+
+        :root{
+            --section-length: 34px;
+        }
+        .add-event-progress-bar{
+            position: relative;
+            width: 75%;
+            margin: 0 auto;
+            margin-bottom: 60px;
+        }
+    
+        .add-event-progress-bar #section1{
+            position: absolute;
+            font-size: 40px;
+            color: var(--red);
+            z-index: 1;
+        }
+    
+        .add-event-progress-bar #section2, .add-event-progress-bar #section3, .add-event-progress-bar #section4, .add-event-progress-bar #section5, .add-event-progress-bar #section6, .add-event-progress-bar #section7{
+            position: absolute;
+            font-size: 40px;
+            color: var(--lightGrey);
+            z-index: 1;
+        }
+    
+        .add-event-progress-bar #connector1, .add-event-progress-bar #connector2, .add-event-progress-bar #connector3, .add-event-progress-bar #connector4, .add-event-progress-bar #connector5, .add-event-progress-bar #connector6{
+            height: 4px;
+            width: calc( (100% - (33px * 7 )) / 6);
+            position: absolute;
+            top: 18px;
+            background-color: var(--lightGrey);
+            z-index: -1;
+        }
+    
+        .add-event-progress-bar #connector1{
+            left: calc( (var(--section-length) * 1) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 0 ) );
+        }
+    
+        .add-event-progress-bar #section2{
+            left: calc( (var(--section-length) * 1) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 1 ) );
+        }
+    
+        .add-event-progress-bar #connector2{
+            left: calc( (var(--section-length) * 2) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 1 ) );
+        }
+    
+        .add-event-progress-bar #section3{
+            left: calc( (var(--section-length) * 2) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 2 ) );
+        }
+    
+        .add-event-progress-bar #connector3{
+            left: calc( (var(--section-length) * 3) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 2 ) );
+        }
+    
+        .add-event-progress-bar #section4{
+            left: calc( (var(--section-length) * 3) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 3 ) );
+        }
+    
+        .add-event-progress-bar #connector4{
+            left: calc( (var(--section-length) * 4) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 3 ) );
+        }
+    
+        .add-event-progress-bar #section5{
+            left: calc( (var(--section-length) * 4) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 4 ) );
+        }
+    
+        .add-event-progress-bar #connector5{
+            left: calc( (var(--section-length) * 5) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 4 ) );
+        }
+    
+        .add-event-progress-bar #section6{
+            left: calc( (var(--section-length) * 5) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 5 ) );
+        }
+
+        .add-event-progress-bar #connector6{
+            left: calc( (var(--section-length) * 6) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 5 ) );
+        }
+    
+        .add-event-progress-bar #section7{
+            left: calc( (var(--section-length) * 6) + ( ( (100% - (var(--section-length) * 7 )) / 6 ) * 6 ) );
+        }
+
+
+    /* Event Form */
+
+        .event-form{
+            color: gray;
+            font-size: 11pt;
+            padding-top: 20px;
+        }
+
+        .event-form p{
+            font-size: 13pt;
+            margin-bottom: 20px;
+            color: red;
+            margin-left: calc(50% - 541px);
+        }
+
+        .event-form input, .event-form select, .event-form textarea{
+            width: 300px;
+            color: black;
+            font-size: 13pt;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        .event-form input[type="checkbox"], .event-form input[type="radio"]{
+            width: 20px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .event-form input[type="submit"]{
+            margin: auto;
+            margin-bottom: 50px;
+            display: block;
+            color: white;
+            background-color: rgb(60, 44, 89);
+            font-weight: bold;
+            border: none;
+            width: 150px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .event-form table{
+            width: 300px;
+        }
+
+        .event-form .three-column-layout-left{
+            width: 320px;
+            margin-left: calc(50% - 541px);
+            margin-right: 30px;
+        }
+
+        .event-form .three-column-layout-middle{
+            height: 475px;
+            width: 320px;
+            padding-left: 30px;
+            padding-right: 30px;
+            border-left: 1px solid gray;
+            border-right: 1px solid gray;
+        }
+
+        .event-form .three-column-layout-right{
+            width: 320px;
+            margin-left: 30px;
+            margin-right: calc(50% - 541px);
+        }
+
+        .time-field input{
+            width: 100px; 
+        }
+
+        .event-form table.event-checkbox{
+            width: 312px;
+            font-size: 13pt;
+            border: 1px solid rgb(169, 169, 169);
+        }
+
+        .event-form .event-checkbox tr td{
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .event-form .event-checkbox tr td:nth-of-type(odd){
+            padding-left: 5px;
+        }
+        
+        .event-form .event-checkbox tr td:nth-of-type(even){
+            padding-right: 5px;
+        }
+
+        #topicOther input{
+            width: 122px;
+            margin: 0;
+            padding: 0px;
+        }
+
+        
+/* Event */
+
+    .event table tr th{
+        width: 180px;
+    }
+
+    .event table tr td{
+        width: 240px;
+    }
+
+    .event #primary, .event #location, .event #ambassadors, .event #contact{
+        border-right: 1px solid lightgray;
+    }
+
+    .event #primary, .event #location, .event #class, .event #ambassadors, .event #contact, .event #additionalInformation{
+        width: 420px;
+        padding-bottom: 20px;
+        margin: 0 auto;
+    }
+
+    .event #primary h4, .event #location h4, .event #class h4, .event #ambassadors h4, .event #contact h4, .event #additionalInformation h4{
+        width: 420px;
+        text-align: left;
+    }
+
+    .event #primary h4 i, .event #location h4 i, .event #class h4 i, .event #ambassadors h4 i, .event #contact h4 i, .event #additionalInformation h4 i{
+        float: right;
+        color: grey;
+    }
+
+    /* Event Toolbar */
+
+        div.event-toolbar{
+            margin-bottom: 20px;
+        }
+
+        div.event-toolbar p{
+            float: left;
+            width: 50%;
+        }
+
+        div.event-toolbar ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        div.event-toolbar li{
+            float: right;
+            background-color: rgb(220, 220, 220);
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            padding: 6px 12px;
+            text-decoration: none !important;
+        }
+
+        div.event-toolbar li:first-of-type{
+            border-radius: 10px;
+            margin-left: 50px;
+        }
+
+        div.event-toolbar li:first-of-type:hover{
+            border-radius: 10px;
+            color: white;
+            background-color: var(--red);
+        }
+
+        div.event-toolbar li:nth-of-type(2){
+            border-radius: 0px 10px 10px 0px;
+            display: none;
+        }
+
+        div.event-toolbar li:nth-of-type(3){
+            display: none;
+        }
+
+        div.event-toolbar li:last-of-type{
+            border-radius: 10px;
+        }
+
+        div.event-toolbar li.active{
+            background-color: var(--primaryPurple);
+            color: white;
+        }
+
+        div.event-toolbar li:hover{
+            background-color: var(--secondaryPurple);
+            color: white;
+        }
+
+        div.event-toolbar li.active:hover{
+            cursor: default;
+            background-color: var(--primaryPurple);
+        }
+
+        div.event-toolbar li.active i:hover{
+            cursor: default;
+        }
+
+
+/* Calendar Colours */
+
+    .calendar-event{
+        background-color: rgba(114, 56, 5, 0.5);
+    }
+
+    /* Topic 3 - Greenfoot */
+    .event-topic-3{
+        background-color: rgba(110, 189, 75, 0.5);
+    }
+    .event-filter-pane #filterGreenfoot{
+        color: rgb(110, 189, 75);
+    }
+
+    /* Topic 6 - LEGO Mindstorms */
+    .event-topic-6{
+        background-color: rgba(254, 236, 0, 0.5);
+    }
+    .event-filter-pane #filterLegoMindstorms{
+        color: rgb(254, 236, 0);
+    }
+
+    /* Topic 4 - Microbits */
+    .event-topic-4{
+        background-color: rgba(98, 198, 232, 0.5);
+    }
+    .event-filter-pane #filterMicrobits{
+        color: rgb(98, 198, 232);
+    }
+
+    /* Topic 2 - Python */
+    .event-topic-2{
+        background-color: rgba(0, 100, 255, 0.5);
+    }
+    .event-filter-pane #filterPython{
+        color: rgb(0, 100, 255);
+    }
+
+    /* Topic 7 - Raspberry Pis */
+    .event-topic-7{
+        background-color: rgba(188, 17, 66, 0.5);
+    }
+    .event-filter-pane #filterRaspberryPis{
+        color: rgb(188, 17, 66);
+    }
+
+    /* Topic 5 - Scratch */
+    .event-topic-5{
+        background-color: rgba(255, 151, 2, 0.5)
+    }
+    .event-filter-pane #filterScratch{
+        color: rgb(255, 151, 2);
+    }
+
+    /* Topic 8 - Web Development */
+    .event-topic-8{
+        background-color: rgba(121, 35, 196, 0.5);
+    }
+    .event-filter-pane #filterWebDesign{
+        color: rgb(121, 35, 196);
+    }
+
+    .event-topic-mixed{
+        background-color: rgba(255, 45, 120, 0.5);
+    }
+    .event-filter-pane #filterMixed{
+        color: rgb(255, 45, 120);
+    }
+
+    .event-topic-null{
+        background-color: transparent;
+    }
+
+
+/* Jobshop Confirm */
+    
+    .jobshopConfirm img{
+        height: 400px; 
+        width: auto;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .jobshopConfirm input[type="submit"]{
+        margin: 30px 30px;
+    }
+
+
+/* My Events */
+
+    .my-events .actionRequiredUrgent{
+        color: white;
+        font-weight: bold;
+        background-color: rgba(255, 0, 0, 0.7);
+        cursor: pointer;
+    }
+    
+        
+/*  Event Ambassadors */
+
+    .event-ambassadors .selected-ambassador-slot, .event-ambassadors .registered-ambassador-slot, .event-ambassadors .empty-ambassador-slot{
+        padding: 10px;
+        border-radius: 10px;
+        margin: 10px;
+        height: 22.4px;
+        width: 300px;
+        font-size: 12pt;
+    }
+
+    .event-ambassadors .selected-ambassador-slot, .event-ambassadors .registered-ambassador-slot{
+        border: 1px solid gray;
+    }
+
+    .event-ambassadors .empty-ambassador-slot{
+        border: 1px solid white; 
+    }
+
+
+
+
+

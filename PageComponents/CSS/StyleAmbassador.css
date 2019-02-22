@@ -1,0 +1,108 @@
+/* Contents
+
+* Ambassador Homepage
+* Jobshop
+* Calendar Colours
+
+*/
+
+
+/* Ambassador Homepage */
+
+    .ambassador-homepage a{
+        color: white;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .ambassador-homepage i{
+        font-size: 150px;
+    }
+
+    .ambassador-homepage h2{
+        font-size: 32px;
+    }
+
+    .ambassador-homepage table tr td{
+        text-align: center;
+    }
+
+    .ambassador-homepage-events, .ambassador-homepage-profile{
+        height: 280px;
+        width: 280px;
+        padding: 40px 50px 50px 50px;
+        border-radius: 40px;
+        position: absolute;
+        top: 50%;
+        margin-top: -185px;
+        background-color: rgb(60, 44, 89);
+    }
+
+    .ambassador-homepage-events{
+        left: 30%;
+        margin-left: -190px;
+    }
+    
+    .ambassador-homepage-profile{
+        right: 30%;
+        margin-right: -190px;
+    }
+
+
+/* Jobshop */
+
+    .ambassador-jobshop img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        height: 350px;
+        width: auto;
+    }
+
+    .ambassador-jobshop form input[type="submit"]{
+        border-radius: 5px;
+        border: none;
+    }
+
+
+/* Notifiactions */
+
+    .ambassador-notification{
+        position: relative;
+        padding: 20px 35px 20px 20px;
+        margin: 20px;
+        border-radius: 5px;
+        border: 1px solid var(--lightGrey);
+    }
+
+    .ambassador-notification i.fa-remove{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: gray;
+    }
+
+
+/* Calendar Colours */
+
+    .calendar .not-eligible{
+        background-color: rgba(110, 110, 110, 0.6);
+    }
+
+    .calendar .working-event{
+        background-color: rgba(90, 223, 1, 0.6);
+    }
+
+    .calendar .reserve-list-for-event{
+        background-color: rgba(162, 45, 240, 0.6);
+    }
+
+    .calendar .registered-for-event{
+        background-color: rgba(12, 105, 255, 0.6);
+    }
+
+    .calendar .not-registered-for-event{
+        background-color: rgba(255, 165, 0, 0.6);
+    }
