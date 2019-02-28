@@ -41,8 +41,8 @@ if(isset($_GET["id"])){
         $eventLocation = sqlFetch("SELECT * FROM EventLocation WHERE eventID = ".$eventID, "ASSOC");
         $eventLocation = $eventLocation[0];
 
-        $eventClass = sqlFetch("SELECT * FROM EventClass WHERE eventID = ".$eventID, "ASSOC");
-        $eventClass = $eventClass[0];
+        $eventWorkshop = sqlFetch("SELECT * FROM EventWorkshop WHERE eventID = ".$eventID, "ASSOC");
+        $eventWorkshop = $eventWorkshop[0];
 
         $eventAmbassadors = sqlFetch("SELECT * FROM EventAmbassadors WHERE eventID = ".$eventID, "ASSOC");
         $eventAmbassadors = $eventAmbassadors[0];
@@ -53,10 +53,10 @@ if(isset($_GET["id"])){
         $eventAdditionalInformation = sqlFetch("SELECT * FROM EventAdditionalInformation WHERE eventID = ".$eventID, "ASSOC");
         $eventAdditionalInformation = $eventAdditionalInformation[0];
 
-        $informationComplete = checkEventCompleteness($eventPrimary, $eventLocation, $eventClass, $eventAmbassadors, $eventContact);
+        $informationComplete = checkEventCompleteness($eventPrimary, $eventLocation, $eventWorkshop, $eventAmbassadors, $eventContact);
 
 
-        $eventTopic = echoEventTopics(fetchEventTopics($eventClass["topic"]), True);
+        $eventTopic = verboseList(fetchTopics($eventWorkshop["topic"]), True);
 
         $leadAmbassador = fetchName($eventAmbassadors["leadAmbassador"], "Admin");
         if(strlen($leadAmbassador) == 1){
@@ -134,63 +134,36 @@ if(isset($_GET["id"])){
 
                         </table>
 
-                    </div>
+                    </div><!-- primary -->
 
                 </div><!-- three-column-layout-left -->
                 <div class="three-column-layout-middle">
 
-                    <div id="location" ondblclick="redirect('/Admin/EventEdit.php?id=<?php echo $eventID; ?>&sectionToEdit=location')">
+                    <div id="workshop" ondblclick="redirect('/Admin/EventEdit.php?id=<?php echo $eventID; ?>&sectionToEdit=workshop')">
 
-                        <h4>Location</h4>
+                        <h4>Workshop Details</h4>
 
                         <table>
 
                             <?php
 
-                            echoTableRowRequired($eventLocation["address1"], "Address Line 1", True);
-                            echoTableRow($eventLocation["address2"], "Address Line 2", True);
-                            echoTableRow($eventLocation["county"], "County", True);
-                            echoTableRowRequired($eventLocation["postcode"], "Postcode", True);
-                            echoTableRowRequired($eventLocation["transport"], "Transport");
+                            echoTableRow($eventWorkshop["numberOfParticipants"], "Number of Participants");
 
-                            if($eventLocation["transport"] != "None"){
-                                if($eventLocation["transportBooked"] == 0){
-                                    echoTableRow("No", "Transport Booked");
-                                }
-                                elseif($eventLocation["transportBooked"] == 0){
-                                    echoTableRow($eventLocation["transportBooked"], "Transport Booked");
+                            $eventType = decrypt($eventPrimary["type"]);
+
+                            if($eventType == "Primary School" || $eventType["type"] == "Secondary School"){
+                                if($eventWorkshop["yearGroup"]){
+                                    $yearGroup = verboseList(decryptJSON($eventWorkshop["yearGroup"]));
                                 }
                                 else{
-                                    echoTableRow("NA", "DATABASE ERROR");
+                                    $yearGroup = "";
                                 }
+                                echoTableRowRequired($yearGroup, "Year Group");
+                            }
+                            else if($eventType == "CPD" || $eventType == "College"){
+                                echoTableRowRequired($eventWorkshop["level"], "Level");
                             }
 
-                            ?>
-
-                        </table>
-
-                    </div>
-
-                </div>
-                <div class="three-column-layout-right">
-
-                    <div id="class" ondblclick="redirect('/Admin/EventEdit.php?id=<?php echo $eventID; ?>&sectionToEdit=class')">
-
-                        <h4>Class Details</h4>
-
-                        <table>
-
-                            <?php
-
-                            echoTableRow($eventClass["className"], "Class Name", True);
-                            echoTableRow($eventClass["classSize"], "Class Size");
-
-                            if(isCardiffEvent($eventPrimary["type"]) == true){
-                                echoTableRow($eventClass["level"], "Level");
-                            }
-                            else{
-                                echoTableRowRequired($eventClass["level"], "Level");
-                            }
 
                             if(isCardiffEvent($eventPrimary["type"]) == true){
                                 echoTableRow($eventTopic, "Topic(s)");
@@ -203,17 +176,14 @@ if(isset($_GET["id"])){
 
                         </table>
 
-                    </div>
-
-                </div><!-- three-column-layout-right -->
-            </div><!-- three-column-layout-row -->
-
-            <div class="three-column-layout-row">
-                <div class="three-column-layout-left">
+                    </div><!-- workshop -->
+                
+                </div><!-- three-column-layout-middle -->
+                <div class="three-column-layout-right">
 
                     <div id="ambassadors" ondblclick="redirect('/Admin/EventEdit.php?id=<?php echo $eventID; ?>&sectionToEdit=ambassadors')">
                     
-                        <h4>Ambassadors</h4>
+                    <h4>Ambassadors</h4>
 
                         <table>
 
@@ -239,7 +209,58 @@ if(isset($_GET["id"])){
 
                         </table>
 
-                    </div>
+                    </div><!-- ambassadors -->
+
+                </div><!-- three-column-layout-right -->
+            </div><!-- three-column-layout-row -->
+
+            <div class="three-column-layout-row">
+                <div class="three-column-layout-left">
+
+                    <div id="location" ondblclick="redirect('/Admin/EventEdit.php?id=<?php echo $eventID; ?>&sectionToEdit=location')">
+
+                        <h4>Location</h4>
+
+                        <table>
+
+                            <?php
+
+                            if($eventLocation["postcode"]){
+                                echoTableRow($eventLocation["address1"], "Address Line 1", True);
+                            }
+                            else{
+                                echoTableRowRequired($eventLocation["address1"], "Address Line 1", True);
+                            }
+
+                            echoTableRow($eventLocation["address2"], "Address Line 2", True);
+                            echoTableRow($eventLocation["county"], "County", True);
+
+                            if($eventLocation["address1"]){
+                                echoTableRow($eventLocation["postcode"], "Postcode", True);
+                            }
+                            else{
+                                echoTableRowRequired($eventLocation["postcode"], "Postcode", True);
+                            }
+
+                            echoTableRowRequired($eventLocation["transport"], "Transport");
+
+                            if($eventLocation["transport"] != "None"){
+                                if($eventLocation["transportBooked"] == 0){
+                                    echoTableRow("No", "Transport Booked");
+                                }
+                                elseif($eventLocation["transportBooked"] == 0){
+                                    echoTableRow($eventLocation["transportBooked"], "Transport Booked");
+                                }
+                                else{
+                                    echoTableRow("NA", "DATABASE ERROR");
+                                }
+                            }
+
+                            ?>
+
+                        </table>
+
+                    </div><!-- location -->
 
                 </div><!-- three-column-layout-left -->
                 <div class="three-column-layout-middle">
@@ -260,7 +281,7 @@ if(isset($_GET["id"])){
 
                         </table>
 
-                    </div>
+                    </div><!-- contact -->
 
                 </div><!-- three-column-layout-middle --> 
                 <div class="three-column-layout-right">
@@ -280,7 +301,7 @@ if(isset($_GET["id"])){
 
                         </table>
 
-                    </div>
+                    </div><!-- additional information -->
 
                 </div><!-- three-column-layout-right -->
             </div><!-- three-column-layout-row -->

@@ -104,15 +104,18 @@ else{
 
     }
 
-    elseif($sectionToEdit == "class"){
-        $table = "EventClass";
+    elseif($sectionToEdit == "workshop"){
+        $table = "EventWorkshop";
         $eventDetails = getDetails();
+        if($eventDetails["yearGroup"]){
+            $eventDetails["yearGroup"] = decryptJSON($eventDetails["yearGroup"]);
+        }
         
 
         if($_SERVER["REQUEST_METHOD"] === "POST"){
 
-            $className = encrypt(validateInput($_POST["className"]));
-            $classSize = validateInput($_POST["classSize"]);
+            $yearGroup = $_POST["yearGroup"];
+            $numberOfParticipants = validateInput($_POST["numberOfParticipants"]);
             $level = validateInput($_POST["level"]);
             $eventTopic = $_POST["eventTopic"];
 
@@ -131,11 +134,15 @@ else{
                 $eventTopic = json_encode($array);
             }
 
-            if(sqlUpdate("UPDATE EventClass SET className=".hasValue($className).", classSize=".hasValue($classSize).", level=".hasValue($level).", topic=".hasValue($eventTopic)." WHERE eventID='{$eventID}'", True, True) == True){
+            if($yearGroup){
+                $yearGroup = encryptJSON($yearGroup);
+            }
+
+            if(sqlUpdate("UPDATE EventWorkshop SET yearGroup=".hasValue($yearGroup).", numberOfParticipants=".hasValue($numberOfParticipants).", level=".hasValue($level).", topic=".hasValue($eventTopic)." WHERE eventID='{$eventID}'", True, True) == True){
                 header("location: /Admin/Event.php?id=".$eventID);
             }
             else{
-                echo "<p style='color: red;'><strong>A system error has occured: Could not write to EventClass table.<br/>Please seek help from the system adminstrator.</strong></p>";
+                echo "<p style='color: red;'><strong>A system error has occured: Could not write to EventWorkshop table.<br/>Please seek help from the system adminstrator.</strong></p>";
             }
         }
 
@@ -144,16 +151,14 @@ else{
         <script src='/JavaScript/AddEvent.js'></script>
         <?php
         echo "<div class='event-form'>
-        <h2>Edit Event <em>".$eventName."</em> - Class Details</h2>";
-        require "/var/www/html/Admin/EventSections/Class.php";
+        <h2>Edit Event <em>".$eventName."</em> - Workshop Details</h2>";
+        require "/var/www/html/Admin/EventSections/Workshop.php";
         echo "</div><!-- event-form -->";
+
+        $eventType = sqlFetch("SELECT type FROM EventPrimary WHERE eventID = '".$eventID."'", "NUM");
+        $eventType = decrypt($eventType[0][0]); 
         ?>
-        <script>populateLevelOptions("<?php
-            
-            $eventType = sqlFetch("SELECT type FROM EventPrimary WHERE eventID = '".$eventID."'", "NUM");
-            echo decrypt($eventType[0][0]); 
-            
-        ?>");</script>
+        <script>toggleYearGroup("<?php echo $eventType?>");</script>
         <?php
 
     }

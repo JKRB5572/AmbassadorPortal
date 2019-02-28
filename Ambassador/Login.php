@@ -47,6 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION["surname"] = decrypt($userDetails["surname"]);
                 $_SESSION["forename"] = decrypt($userDetails["forename"]);
                 $_SESSION["givenName"] = decrypt($userDetails["givenName"]);
+                $_SESSION["email"] = decrypt($userDetails["email"]);
                 $_SESSION["phoneNo"] = decrypt($userDetails["phoneNo"]);
                 $_SESSION["programOfStudy"] = $userDetails["programOfStudy"];
                 $_SESSION["yearOfStudy"] = $userDetails["yearOfStudy"];
@@ -104,7 +105,7 @@ else{
             <label>Password</label><input name="password" type="password"><br/>
             <div style='text-align: center;'><input type="submit" value="Log in"></div>
         </form>
-        <p id="forgottenPassword"><a href='https://password.cardiff.ac.uk/public/ForgottenPassword'>Forgotten your password?</p>
+        <p id="forgottenPassword"><a href='https://password.cardiff.ac.uk/public/ForgottenPassword'>Forgotten your password?</a></p>
     </div><!-- login-form-->
 </div><!-- login-page -->
 

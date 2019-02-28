@@ -17,13 +17,36 @@ checkPageIsActive("Training");
 
 ?>
 
+<script>
+
+var header = document.getElementById("tableHeader");
+var sticky = header.offsetTop;
+
+window.onscroll = function () {
+    if (window.pageYOffset > sticky) {
+        header.classList.add("sticky");
+    } else {
+        header.classList.remove("sticky");
+    }
+};
+
+</script>
+
+
 <h2>Update Ambassador Training</h2>
 
 <button class="server-action" onclick="updateAmbassadorTraining()" style="float: right;">Confirm Changes</button>
 
 <?php
 
-$allAmbassadors = sqlFetch("SELECT universityID, surname, forename, givenName, trainingCompleted FROM Ambassadors ORDER BY surname, forename", "ASSOC");
+$allAmbassadors = sqlFetch("SELECT universityID, email, surname, forename, givenName, trainingCompleted FROM Ambassadors", "ASSOC");
+
+foreach($allAmbassadors as $key => $ambassador){
+    $allAmbassadors[$key]["email"] = decrypt($ambassador["email"]);
+}
+
+$email = array_column($allAmbassadors, "email");
+array_multisort($email, SORT_ASC, $allAmbassadors);
 
 $training = sqlFetch("SELECT topicID, topicName FROM Topics WHERE trainingRequired = 1", "ASSOC");
 
@@ -74,10 +97,6 @@ echo "</table>";
 
 ?>
 
-
-<!-- POTENTIALLY ADD BACK IN WHEN MORE AMBASSADORS ARE LOADED 
-    button class="server-action" onclick="updateAmbassadorTraining()" style="float: right;">Confirm Changes</button
--->
 
 <script>
 

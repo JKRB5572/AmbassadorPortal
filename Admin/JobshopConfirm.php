@@ -59,6 +59,10 @@ else{
             <td><?php echo decrypt($ambassador[0]["givenName"]); ?></td>
         </tr>
         <tr>
+            <th>Student Number</th>
+            <td><?php echo decryptUsername($ambassador[0]["universityID"]); ?></td>
+        </tr>
+        <tr>
             <th>Expected Finish</th>
             <td>
                 <?php
@@ -88,8 +92,8 @@ else{
     <form method="POST" action="JobshopConfirm.php">
         <input type="hidden" value="<?php echo $ambassador[0]["universityID"]; ?>" name="universityID">
         <div style='text-align: center;'>
-            <input type="submit" value="Confirm Jobshop Card" name="confirm">
-            <input type="submit" value="Reject Jobshop Card" name="reject" style='background-color: rgb(211, 55, 74);'>
+            <input class="server-action" type="submit" value="Confirm Jobshop Card" name="confirm">
+            <input class="client-action" type="submit" value="Reject Jobshop Card" name="reject">
         </div>
     </form>
 

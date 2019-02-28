@@ -27,66 +27,38 @@ var eventDisplay = "<?php if(isset($_SESSION["eventDisplay"])){ echo htmlspecial
     <div class="event-filter-pane">
 
         <h4>Filter Events</h4>
-        <p>Topic</p>
-        <table class="collapsed">
-            <tr>
-                <td><input id="filterGreenfootCheckbox" type="checkbox" onclick="filterTopic()"></td>
-                <td id="filterGreenfoot">Greenfoot</td>
-                <td><input id="filterLegoMindstormCheckbox" type="checkbox" onclick="filterTopic()"></td>
-                <td id="filterLegoMindstorms">LEGO Mindstorms</td>
-            </tr>
-            <tr>
-                <td><input id="filterMicrobitsCheckbox" type="checkbox" onclick="filterTopic()"></td>
-                <td id="filterMicrobits">Micro:bits</td>
-                <td><input id="filterPythonCheckbox" type="checkbox" onclick="filterTopic()"></td>
-                <td id="filter">Python</td>
-            </tr>
-            <tr>
-                <td><input id="filterRaspberryPisCheckbox" type="checkbox" onclick="filterTopic()"></td>
-                <td id="filterRaspberryPis">Raspberry Pis</td>
-                <td><input id="filterScratchCheckbox" type="checkbox" onclick="filterTopic()"></td>
-                <td id="filterScratch">Scratch</td>
-            </tr>
-            <tr>
-                <td><input id="filterWebDesignCheckbox" type="checkbox" onclick="filterTopic()"></td>
-                <td id="filterWebDesign">Web Design</td>
-                <td><input id="filterOtherCheckbox" type="checkbox" onclick="filterTopic()"></td>
-                <td id="filterTopicOther">Other</td>
-            </tr>
-        </table>
-        <br/>
-        
         <p>Type</p>
         <table class="collapsed">
             <tr>
-                <td><input id="filterPrimarySchoolCheckbox" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterPrimarySchoolCheckbox" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterPrimarySchool">Primary School</td>
-                <td><input id="filterSecondarySchoolCheckbox" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterSecondarySchoolCheckbox" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterSecondarySchool">Secondary School</td>
             </tr>
             <tr>
-                <td><input id="filterCollegeCheckbox" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterCollegeCheckbox" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterCollege">College</td>
-                <td><input id="filterCPDCheckbox" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterCPDCheckbox" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterCPD">CPD</td>
             </tr>
             <tr>
-                <td><input id="filterCommunityCheckbox" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterCommunityCheckbox" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterCommunity">Community</td>
-                <td><input id="filterOpenDay" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterOpenDay" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterOpenDay">Open Day</td>
             </tr>
             <tr>
-                <td><input id="filterUCASDayCheckbox" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterUCASDayCheckbox" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterUCASDay">UCAS Day</td>
-                <td><input id="filterNetworkingEventCheckbox" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterNetworkingEventCheckbox" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterNetworkingEvent">Networking</td>
             </tr>
             <tr>
-                <td><input id="filterTypeOtherCheckbox" type="checkbox" onclick="filterTopic()"></td>
+                <td><input id="filterTypeOtherCheckbox" type="checkbox" onclick="filterEventType()"></td>
                 <td id="filterTypeOther">Other</td>
             </tr>
         </table>
+        <br/>
 
     </div><!-- event-filter-pane -->
 

@@ -1,0 +1,15 @@
+Beta Version 1.0.2 Tests
+
+Cardiff Event - Year Group & Level do not show on Class Page
+Primary School Event - Year Group shows on class page, requires at least one value to progress
+Secondary School Event - As Above
+College Event - Level shows on class page, is always popualted
+CPD Event - As above
+
+For all above check that values are correctly written to database
+
+Add event as Primary School, change type to other, and write to database. Year Group should be null.
+Add event as CPD, change type to other, and write to database. Level should be null.
+
+
+

@@ -84,7 +84,7 @@ function fetchName($userID, $table){
 }
 
 
-function fetchEventTopics($array){
+function fetchTopics($array){
 	if($array != ""){
 
 		if(gettype($array) != "array"){
@@ -107,7 +107,7 @@ function fetchEventTopics($array){
 }
 
 
-function echoEventTopics($array, $return = False){
+function verboseList($array){
 	if($array != ""){
 
 		if(gettype($array) != "array"){
@@ -122,15 +122,8 @@ function echoEventTopics($array, $return = False){
 		if(isset($array[$i])){
 			$returnString .= " and ".$array[$i];
 		}
+		return $returnString;
 
-
-		if($return = False){
-			echo $returnString;
-		}
-		else{
-			return $returnString;
-		}
-	
 	}
 	else{
 		return NULL;
@@ -274,6 +267,38 @@ function createNotificationAmbassador($text, $category = null, $target = null){
 
 	if(sqlInsert($query, True, True) == False){
 		echo "<script>console.log('ERROR: Failed to create notification');</script>";
+	}
+}
+
+
+function studyProgramName($programCode){
+	$value = sqlFetch("SELECT programName, programType FROM StudyPrograms WHERE programCode = '{$programCode}'", "ASSOC");
+	$returnString = $value[0]["programName"];
+	if($value[0]["programType"] == "UG"){
+		$returnString .= " (BSc)";
+	}
+	else if($value[0]["programType"] == "MD"){
+		$returnString .= " (Masters Degree)";
+	}
+	else if($value[0]["programType"] == "PHD"){
+		$returnString .= " (PhD)";
+	}
+	return $returnString;
+}
+
+
+function verboseYearOfStudy($yearOfStudy){
+	if($yearOfStudy == 1){
+		return "1<sup>st</sup> Year";
+	}
+	else if($yearOfStudy == 2){
+		return "2<sup>nd</sup> Year";
+	}
+	else if($yearOfStudy == 3){
+		return "3<sup>rd</sup> Year";
+	}
+	else{
+		return "{$yearOfStudy}<sup>th</sup> Year";
 	}
 }
 

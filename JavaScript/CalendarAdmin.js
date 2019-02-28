@@ -167,7 +167,7 @@ function previousMonth(){
         calendarMonth--;
     }
     populateCalendar(calendarMonth, calendarYear);
-    filterTopic();
+    filterEventType();
 }
 
 
@@ -258,7 +258,7 @@ function addEvents(jsonObj){
         listViewContent += '</table>';
         document.getElementById('listView').innerHTML = listViewContent;
     }
-    filterTopic();
+    filterEventType();
     document.getElementById("loadingMoreSpinner").style.display = "none";
 }
 

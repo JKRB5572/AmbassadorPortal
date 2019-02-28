@@ -21,6 +21,7 @@ function eventsLoadMore(month, year, callback, limit){
     var jsonObj;
     xmlhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
             jsonObj = JSON.parse(this.responseText);
             callback(jsonObj);
         }
@@ -129,7 +130,7 @@ function nextMonth(){
         calendarMonth++;
     }
     populateCalendar(calendarMonth, calendarYear);
-    filterTopic();
+    filterEventType();
 }
 
 
@@ -172,7 +173,72 @@ function changeDisplay(button){
 }
 
 
+function filterEventType(){
+    var checkedCount = 0;
+    var filter = [];
+    var calendarEvents = document.getElementsByClassName("calendar-event");
+    var listViewEvents = document.getElementsByClassName("list-view-event");
 
+
+    if($("#filterPrimarySchoolCheckbox").prop("checked")){
+        filter.push("event-type-primary-school");
+    }
+    if($("#filterSecondarySchoolCheckbox").prop("checked")){
+        filter.push("event-type-secondary-school");
+    }
+    if($("#filterCollegeCheckbox").prop("checked")){
+        filter.push("event-type-college");
+    }
+    if($("#filterCPDCheckbox").prop("checked")){
+        filter.push("event-type-cpd");
+    }
+    if($("#filterCommunityCheckbox").prop("checked")){
+        filter.push("event-type-community");
+    }
+    if($("#filterOpenDayCheckbox").prop("checked")){
+        filter.push("event-type-cu-open-day");
+    }
+    if($("#filterUCASCheckbox").prop("checked")){
+        filter.push("event-type-cu-ucas-day");
+    }
+    if($("#filterNetworkingEventCheckbox").prop("checked")){
+        filter.push("event-type-networking-event");
+    }
+    if($("#filterTypeOtherCheckbox").prop("checked")){
+        filter.push("event-type-other");
+    }    
+
+
+    if(filter.length > 0){
+        var containsFilter;
+        for(var i = 0; i < calendarEvents.length; i++){
+            containsFilter = false;
+            for(var j = 0; j < filter.length; j++){
+                if(calendarEvents[i].outerHTML.includes(filter[j])){
+                    containsFilter = true;
+                    break;
+                }
+            }
+            if(containsFilter == true){
+                calendarEvents[i].style.visibility = "visible";
+                listViewEvents[i].style.visibility = "visible";
+            }
+            else{
+                calendarEvents[i].style.visibility = "hidden";
+                listViewEvents[i].style.visibility = "hidden";
+            }
+        }
+    }
+    else{
+        for(var i = 0; i < calendarEvents.length; i++){
+            calendarEvents[i].style.visibility = "visible";
+            listViewEvents[i].style.visibility = "visible";
+        }
+    }
+}
+
+
+//DEPRICATED
 function filterTopic(){
     var checkedCount = 0;
     var filter = [];

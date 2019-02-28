@@ -1,6 +1,5 @@
 <?php
 
-
 function generateIV(){
     $alphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $returnString = "";
@@ -9,6 +8,7 @@ function generateIV(){
     }
     return $returnString;
 }
+
 
 function encrypt($data){
     if($data != ""){
@@ -21,14 +21,36 @@ function encrypt($data){
     }
 }
 
+
 function decrypt($data){
     list($text, $IV) = array_pad(explode("---", $data), 2, null);
     return openssl_decrypt(base64_decode($text), "AES-192-CTR", $_ENV["ENCRYPTION_KEY"], 0, $IV);
 }
 
+
+function encryptJSON($data){
+    $encryptedArray = array();
+    foreach($data as $string){
+        array_push($encryptedArray, encrypt(validateInput($string)));
+    }
+    return json_encode($encryptedArray);
+}
+
+
+function decryptJSON($data){
+    $data = json_decode($data);
+    $decryptedArray = array();
+    foreach($data as $string){
+        array_push($decryptedArray, decrypt($string));
+    }
+    return json_encode($decryptedArray);
+}
+
+
 function encryptUsername($data){
     return base64_encode(openssl_encrypt($data, "AES-192-CTR", $_ENV["ENCRYPTION_KEY_USERNAME"], 0, $_ENV["ENCRYPTION_IV_USERNAME"]));
 }
+
 
 function decryptUsername($date){
     return base64_decode(openssl_encrypt($data, "AES-192-CTR", $_ENV["ENCRYPTION_KEY_USERNAME"], 0, $_ENV["ENCRYPTION_IV_USERNAME"]));

@@ -38,6 +38,8 @@ function role($accessLevel){
 
 include "../PageComponents/Head.php";
 
+
+//CHANGE TO SESSION VARIABLES
 $userDetails = sqlFetch("SELECT * FROM Admin WHERE adminID = '".$_SESSION["userID"]."'", "ASSOC");
 $userDetails = $userDetails[0];
 

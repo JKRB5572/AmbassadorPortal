@@ -1,0 +1,94 @@
+**************************************************************************************************
+
+VERSION: 	    Beta Test 1.0.2
+RELEASE DATE:	25/02/2019
+
+DESCRIPTION: 	Adds account editing and addresses important issues
+
+
+**************************************************************************************************
+
+NEW FEATURES
+
+* Ambassador My Account Page Created
+  - Ambassadors can view information about them stored on the system including their training
+    status
+  - Ambassadors can edit their surname, forename, given name, t-shirt size, and driver status
+
+* Ambassadors now displays hours worked
+
+* Event Ambassadors reformatted and now shows training, degree program, and year of study
+
+* New topics added: LEGO WeDo, Sonic Pi, Unplugged, Virtual Reality
+
+* Event Filter added to Ambassador Calendar
+
+--------------------------------------------------------------------------------------------------
+
+ISSUES ADDRESSED
+
+* Add ambassador regexp updated to support multiple forenames
+
+* Event visibility updated to no longer require both postcode and address line 1 but either one
+  instead
+
+* Event visibility updated to only require level for seconday school and college events
+
+* Class name changed to year group and changed from input text to input text box
+
+* Class size has been change to number of participants to provide greater clairty
+
+* Year group only displays when primary school or secondary school event type selected
+
+* Year group only required when displayed
+
+* Level from add event now only appears for college and CPD events
+
+* Class Details has been renamed to Workshop Details to provider greater clarity
+
+
+--------------------------------------------------------------------------------------------------
+
+BUG FIXES 
+
+* Ambassador emails now decrypt correctly
+
+
+======================================END OF VERSION DETAILS======================================
+
+
+
+
+**************************************************************************************************
+
+VERSION: 	    Beta Test 1.0.1
+RELEASE DATE:	21/02/2019
+
+DESCRIPTION: 	Adds upload single ambassador and upload multiple ambassadors
+
+
+**************************************************************************************************
+
+NEW FEATURES
+
+* Add Ambassador Page Created
+  - Admins can a single ambassador by filling out the relevant fields
+  - Admins can add multiple ambassadors by uploading a CSV file in the correct format as explained
+    on the page
+
+
+--------------------------------------------------------------------------------------------------
+
+ISSUES ADDRESSED
+
+* None
+
+
+--------------------------------------------------------------------------------------------------
+
+BUG FIXES
+
+* Ambassadors page no longer repeats ambassadors' information
+
+
+======================================END OF VERSION DETAILS======================================

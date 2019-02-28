@@ -62,7 +62,11 @@ if(sizeof($bugReports) > 0){
                 $name = "<strong><span style='color: red;'>SYSTEM</span></strong>";
             }
             else{
-                $name = sqlFetch("SELECT surname, forename FROM Admin WHERE adminID = '".$bug["reportedBy"]."'", "ASSOC");
+                $name = sqlFetch("SELECT surname, forename FROM Ambassadors WHERE universityID = '".$bug["reportedBy"]."'", "ASSOC");
+                if(sizeof($name) == 0){
+                    $name = sqlFetch("SELECT surname, forename FROM Admin WHERE adminID = '".$bug["reportedBy"]."'", "ASSOC");
+                }
+                
                 if(sizeof($name) > 0){
                     $name = decrypt($name[0]["forename"])." ".decrypt($name[0]["surname"]);
                 }

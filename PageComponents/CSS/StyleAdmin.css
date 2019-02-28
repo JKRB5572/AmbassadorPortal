@@ -11,6 +11,7 @@
 * Calendar Colours
 * Jobshop Confirm
 * My Events
+* Ambassadors
 * Event Ambassadors
 
 */
@@ -224,22 +225,22 @@
         width: 240px;
     }
 
-    .event #primary, .event #location, .event #ambassadors, .event #contact{
+    .event #primary, .event #workshop, .event #location, .event #contact{
         border-right: 1px solid lightgray;
     }
 
-    .event #primary, .event #location, .event #class, .event #ambassadors, .event #contact, .event #additionalInformation{
+    .event #primary, .event #location, .event #workshop, .event #ambassadors, .event #contact, .event #additionalInformation{
         width: 420px;
         padding-bottom: 20px;
         margin: 0 auto;
     }
 
-    .event #primary h4, .event #location h4, .event #class h4, .event #ambassadors h4, .event #contact h4, .event #additionalInformation h4{
+    .event #primary h4, .event #location h4, .event #workshop h4, .event #ambassadors h4, .event #contact h4, .event #additionalInformation h4{
         width: 420px;
         text-align: left;
     }
 
-    .event #primary h4 i, .event #location h4 i, .event #class h4 i, .event #ambassadors h4 i, .event #contact h4 i, .event #additionalInformation h4 i{
+    .event #primary h4 i, .event #location h4 i, .event #workshop h4 i, .event #ambassadors h4 i, .event #contact h4 i, .event #additionalInformation h4 i{
         float: right;
         color: grey;
     }
@@ -414,6 +415,10 @@
         cursor: pointer;
     }
     
+
+/* Ambassadors */
+
+    
         
 /*  Event Ambassadors */
 
@@ -421,8 +426,8 @@
         padding: 10px;
         border-radius: 10px;
         margin: 10px;
-        height: 22.4px;
-        width: 300px;
+        height: 110px;
+        width: 450px;
         font-size: 12pt;
     }
 

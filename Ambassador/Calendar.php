@@ -2,6 +2,15 @@
 
 include "../PageComponents/Head.php";
 
+function requiredTraining(){
+    $allTopics = sqlFetch("SELECT topicID FROM Topics WHERE trainingRequired = 1", "ASSOC");
+    $returnArray = array();
+    foreach($allTopics as $topic){
+        $returnArray[] = $topic["topicID"];
+    }
+    return json_encode($returnArray);
+}
+
 
 $myEvents = sqlFetch("SELECT eventID, requestedStartTime FROM EventRegistration WHERE universityID = '".$_SESSION["userID"]."'", "ASSOC");
 
@@ -50,6 +59,7 @@ var training = <?php echo json_encode($_SESSION["training"]); ?>;
 if(training){
     training = training.map(Number);
 }
+var topicsRequiringTraining = <?php echo requiredTraining(); ?>;
 var workingEvents = <?php echo json_encode($workingEvents); ?>;
 var registeredEvents = <?php echo json_encode($registeredEvents); ?>;
 var reserveEvents = <?php echo json_encode($reserveEvents); ?>;
@@ -57,6 +67,44 @@ var reserveEvents = <?php echo json_encode($reserveEvents); ?>;
 </script>
 
 <div style="float: left; width: 23%;">
+
+    <div class="event-filter-pane">
+
+        <h4>Filter Events</h4>
+        <p>Type</p>
+        <table class="collapsed">
+            <tr>
+                <td><input id="filterPrimarySchoolCheckbox" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterPrimarySchool">Primary School</td>
+                <td><input id="filterSecondarySchoolCheckbox" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterSecondarySchool">Secondary School</td>
+            </tr>
+            <tr>
+                <td><input id="filterCollegeCheckbox" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterCollege">College</td>
+                <td><input id="filterCPDCheckbox" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterCPD">CPD</td>
+            </tr>
+            <tr>
+                <td><input id="filterCommunityCheckbox" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterCommunity">Community</td>
+                <td><input id="filterOpenDay" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterOpenDay">Open Day</td>
+            </tr>
+            <tr>
+                <td><input id="filterUCASDayCheckbox" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterUCASDay">UCAS Day</td>
+                <td><input id="filterNetworkingEventCheckbox" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterNetworkingEvent">Networking</td>
+            </tr>
+            <tr>
+                <td><input id="filterTypeOtherCheckbox" type="checkbox" onclick="filterEventType()"></td>
+                <td id="filterTypeOther">Other</td>
+            </tr>
+        </table>
+        <br/>
+
+    </div><!-- event-filter-pane -->
 
     <div class="event-details-pane">
         <h4>Event Details</h4>

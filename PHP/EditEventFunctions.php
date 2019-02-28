@@ -52,28 +52,37 @@ function checkEventCompletenessIDOnly($eventID){
 
     $eventLocation = sqlFetch("SELECT address1, postcode, transport FROM EventLocation WHERE eventID = '".$eventID."'", "ASSOC");
 
-    $eventClass = sqlFetch("SELECT level, topic FROM EventClass WHERE eventID = '".$eventID."'", "ASSOC");
+    $eventWorkshop = sqlFetch("SELECT topic FROM EventWorkshop WHERE eventID = '".$eventID."'", "ASSOC");
 
     $eventAmbassadors = sqlFetch("SELECT numberNeeded, trainingRequired, reportLocation FROM EventAmbassadors WHERE eventID = '".$eventID."'", "ASSOC");
 
-    $returnValue = checkEventCompleteness($eventPrimary[0], $eventLocation[0], $eventClass[0], $eventAmbassadors[0]);
+    $returnValue = checkEventCompleteness($eventPrimary[0], $eventLocation[0], $eventWorkshop[0], $eventAmbassadors[0]);
     return $returnValue;
 }
 
 
-function checkEventCompleteness($eventPrimary, $eventLocation, $eventClass, $eventAmbassadors){
+function checkEventCompleteness($eventPrimary, $eventLocation, $eventWorkshop, $eventAmbassadors){
 
     if($eventPrimary["eventName"] == "" || $eventPrimary["fundingSource"] == "" || $eventPrimary["eventDate"] == "" || $eventPrimary["startTime"] == "" || $eventPrimary["endTime"] == "" || $eventPrimary["type"] == ""){
         return false;
     }
     
-    if($eventLocation["address1"] == "" || $eventLocation["postcode"] == "" || $eventLocation["transport"] == ""){
+    if( ($eventLocation["address1"] == "" && $eventLocation["postcode"] == "") || $eventLocation["transport"] == ""){
+        return false;
+    }
+
+    $eventType = decrypt($eventPrimary["type"]);
+
+    if( ($eventType == "Primary School" || $eventType == "Secondary School") && $eventWorkshop["yearGroup"] == "" ){
+        return false;
+    }
+    else if( ($eventType == "CPD" || $eventType == "College") && $eventWorkshop["level"] == ""){
         return false;
     }
     
     if(isCardiffEvent($eventPrimary["type"]) == false){
 
-        if($eventClass["level"] == "" || $eventClass["topic"] == ""){
+        if($eventWorkshop["topic"] == ""){
             return false;
         }
 
@@ -83,7 +92,7 @@ function checkEventCompleteness($eventPrimary, $eventLocation, $eventClass, $eve
         return false;
     }
 
-    //If all tests passed (I.e. return false) then return true
+    //If all tests passed (I.e. not returned false) then return true
     return true;
 }
 

@@ -18,8 +18,8 @@ if(isset($_POST["postcode"])){ $postcode = encrypt(validateInput($_POST["postcod
 if(isset($_POST["transport"])){ $transport = validateInput($_POST["transport"]); } else { $transport = ""; }
 
 //Class
-if(isset($_POST["className"])){ $className = encrypt(validateInput($_POST["className"])); } else { $className = ""; }
-if(isset($_POST["classSize"])){ $classSize = validateInput($_POST["classSize"]); } else { $classSize = ""; }
+if(isset($_POST["yearGroup"])){ $yearGroup = $_POST["yearGroup"]; } else { $yearGroup = ""; }
+if(isset($_POST["numberOfParticipants"])){ $numberOfParticipants = validateInput($_POST["numberOfParticipants"]); } else { $numberOfParticipants = ""; }
 if(isset($_POST["level"])){ $level = validateInput($_POST["level"]); } else { $level = ""; }
 if(isset($_POST["eventTopic"])){ $eventTopic = $_POST["eventTopic"]; } else { $eventTopic = ""; }
 

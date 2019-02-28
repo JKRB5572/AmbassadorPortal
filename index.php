@@ -43,7 +43,7 @@ if(isset($_SESSION['userType'])){
         <div class="two-column-layout-left">
             <div class="portal-home-ambassador">
                 <a href="Ambassador/Login.php">
-                    <h4>Ambassador<br/>Portal</h4>
+                    <h4>Ambassador<br/>Login</h4>
                 </a>
             </div>
         </div><!-- two-column-layout-left -->
@@ -51,7 +51,7 @@ if(isset($_SESSION['userType'])){
         <div class="two-column-layout-right">
             <div class="portal-home-admin">
                 <a href="Admin/Login.php">
-                    <h4>Admin<br/>Portal</h4>
+                    <h4>Admin<br/>Login</h4>
                 </a>
             </div>
         </div><!-- two-column-layout-right -->

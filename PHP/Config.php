@@ -1,8 +1,7 @@
 <?php
 
 function deploymentVersion(){
-    $version = "0.1.1";
-    echo "<p style='color: #555; background-color: white; font-size: 12pt; padding-top: 5px; padding-left: 5px; margin-bottom: 0px'><strong>Beta Test (Version 1.0.1)</strong>&nbsp;&nbsp;&nbsp;&nbsp<em>Please report any bugs you encounter with the button below.</a></em>";
+    echo "<p style='color: #555; background-color: white; font-size: 12pt; padding-top: 5px; padding-left: 5px; margin-bottom: 0px'><strong>Beta Test (Version 1.0.2)</strong>&nbsp;&nbsp;&nbsp;&nbsp<em>Please report any bugs you encounter with the button below.</a></em>";
 
     $announcement = sqlFetch("SELECT text FROM SystemAnnouncements WHERE target = 'pageHeader'", "NUM");
     if(count($announcement[0]) > 0){

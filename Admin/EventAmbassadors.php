@@ -17,8 +17,8 @@ $eventPrimary = $eventPrimary[0]; //Remove outer array
 $eventAmbassadors = sqlFetch("SELECT * FROM EventAmbassadors WHERE eventID = '".$eventID."'", "ASSOC");
 $eventAmbassadors = $eventAmbassadors[0];
 
-$eventClass = sqlFetch("SELECT level, topic FROM EventClass WHERE eventID = '".$eventID."'", "ASSOC");
-$eventClass = $eventClass[0];
+$eventWorkshop = sqlFetch("SELECT level, topic FROM EventWorkshop WHERE eventID = '".$eventID."'", "ASSOC");
+$eventWorkshop = $eventWorkshop[0];
 
 $leadAmbassador = sqlFetch("SELECT surname, forename, givenName FROM Ambassadors WHERE universityID = '".$eventAmbassadors["leadAmbassador"]."'", "ASSOC");
 
@@ -29,7 +29,7 @@ else{
     $leadAmbassador = "";
 }
 
-$registeredAmbassadors = sqlFetch("SELECT Ambassadors.universityID, surname, forename, givenName, hoursWorked, recordID, requestedStartTime, requestedEndTime FROM Ambassadors, EventRegistration WHERE Ambassadors.universityID = EventRegistration.universityID AND eventID = '".$eventID."'", "ASSOC");
+$registeredAmbassadors = sqlFetch("SELECT Ambassadors.universityID, surname, forename, givenName, programOfStudy, yearOfStudy, trainingCompleted, hoursWorked, recordID, requestedStartTime, requestedEndTime FROM Ambassadors, EventRegistration WHERE Ambassadors.universityID = EventRegistration.universityID AND eventID = '".$eventID."'", "ASSOC");
 
 foreach($registeredAmbassadors as $key => $ambassador){
     $registeredAmbassadors[$key]["forename"] = decrypt($ambassador["forename"]);
@@ -163,11 +163,11 @@ function submitSelection(){
         substr($eventPrimary["startTime"], 0, 5)." - ".substr($eventPrimary["endTime"], 0, 5)."<br/>".
         decrypt($eventPrimary["type"]);
 
-        if(isset($eventClass["level"])){
-            echo " - ".$eventClass["level"];
+        if(isset($eventWorkshop["level"])){
+            echo " - ".$eventWorkshop["level"];
         }
 
-        echo "<br/>".echoEventTopics(fetchEventTopics($eventClass["topic"]))."<br/>";
+        echo "<br/>".verboseList(fetchTopics($eventWorkshop["topic"]))."<br/>";
 
         if($eventAmbassadors["trainingRequired"] == "Y"){
             echo "Training is required for this event";
@@ -214,7 +214,15 @@ function submitSelection(){
 
             foreach($registeredAmbassadors as $ambassador){
                 echo "
-                <div id='".$ambassador["universityID"]."' class='registered-ambassador-slot' onclick='addAmbassador(\"".$ambassador["universityID"]."\")'>".returnFullName($ambassador["surname"], $ambassador["forename"], $ambassador["givenName"])."<span style='float: right;'>".$ambassador["hoursWorked"]."</div>";
+                <div id='".$ambassador["universityID"]."'
+                class='registered-ambassador-slot'
+                onclick='addAmbassador(\"".$ambassador["universityID"]."\")'>
+                <strong>".returnFullName($ambassador["surname"], $ambassador["forename"], $ambassador["givenName"])."</strong><br/>
+                ".verboseYearOfStudy($ambassador["yearOfStudy"])." ".studyProgramName($ambassador["programOfStudy"])."<br/>
+                Trained in ".verboseList(fetchTopics($ambassador["trainingCompleted"]))."<br/> 
+                ".$ambassador["hoursWorked"]." hours worked
+                </div>";
+
                 if($ambassador["requestedStartTime"]){
                     echo "<script>addAmbassador('".$ambassador["universityID"]."')</script>";
                 }

@@ -25,6 +25,12 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     }
 
 
+    #Format year group
+    if($yearGroup != ""){
+        $yearGroup = encryptJSON($yearGroup);
+    }
+
+
     #Set event date
     if($repeatPosition > 0){
 
@@ -91,8 +97,8 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
                 }
                 else{
 
-                    #Insert to EventClass
-                    if(sqlInsert("INSERT INTO EventClass(eventID, className, classSize, level, topic) VALUES ('".$eventID."', ".hasValue($className).", ".hasValue($classSize).", ".hasValue($level).", ".hasValue($eventTopic).")", True, True) == False){
+                    #Insert to EventWorkshop
+                    if(sqlInsert("INSERT INTO EventWorkshop(eventID, yearGroup, numberOfParticipants, level, topic) VALUES ('".$eventID."', ".hasValue($yearGroup).", ".hasValue($numberOfParticipants).", ".hasValue($level).", ".hasValue($eventTopic).")", True, True) == False){
                         $throwbackError = "A system error has occured whilst writing to the database. Please seek help from the system adminstrator and quote the following error code: 9-P-AEES-4.";
                     }
                     else{
@@ -132,7 +138,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     if($throwbackError != NULL && isset($eventID)){
         sqlDelete("DELETE FROM EventPrimary WHERE eventID = '".$eventID."'");
         sqlDelete("DELETE FROM EventLocation WHERE eventID = '".$eventID."'");
-        sqlDelete("DELETE FROM EventClass WHERE eventID = '".$eventID."'");
+        sqlDelete("DELETE FROM EventWorkshop WHERE eventID = '".$eventID."'");
         sqlDelete("DELETE FROM EventAmbassadors WHERE eventID = '".$eventID."'");
         sqlDelete("DELETE FROM EventContact WHERE eventID = '".$eventID."'");
         sqlDelete("DELETE FROM EventAdditionalInformation WHERE eventID = '".$eventID."'");

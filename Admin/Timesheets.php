@@ -14,8 +14,8 @@ if(sizeof($eventPrimary) == 0){
 
 $eventPrimary = $eventPrimary[0];
 
-$eventClass = sqlFetch("SELECT level, topic FROM EventClass WHERE eventID = '".$eventID."'", "ASSOC");
-$eventClass = $eventClass[0];
+$eventWorkshop = sqlFetch("SELECT level, topic FROM EventWorkshop WHERE eventID = '".$eventID."'", "ASSOC");
+$eventWorkshop = $eventWorkshop[0];
 
 
 $registeredAmbassadors = sqlFetch(
@@ -71,11 +71,11 @@ echo "
     substr($eventPrimary["startTime"], 0, 5)." - ".substr($eventPrimary["endTime"], 0, 5)."<br/>".
     decrypt($eventPrimary["type"]);
 
-    if(isset($eventClass["level"])){
-        echo " - ".$eventClass["level"];
+    if(isset($eventWorkshop["level"])){
+        echo " - ".$eventWorkshop["level"];
     }
 
-    echo "<br/>".echoEventTopics(fetchEventTopics($eventClass["topic"]))."<br/>
+    echo "<br/>".verboseList(fetchTopics($eventWorkshop["topic"]))."<br/>
 </p>";
 
 ?>

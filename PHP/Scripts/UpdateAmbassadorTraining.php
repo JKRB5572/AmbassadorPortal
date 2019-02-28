@@ -11,12 +11,16 @@ if(isset($_POST["data"])){
     $data = json_decode($data);
 
     foreach($data as $ID => $training){
-        $training = json_encode($training);
 
-        if($training == '["undefined"]'){
+        if($training[0] == "undefined"){
             sqlUpdate("UPDATE Ambassadors SET trainingCompleted = NULL WHERE universityID = '".$ID."'", True);
         }
         else{
+            //Check if LEGO training completed and add LEGO WeDo training if true
+            if(in_array("6", $training)){
+                array_push($training, "10");
+            }
+            $training = json_encode($training);
             sqlUpdate("UPDATE Ambassadors SET trainingCompleted = '".$training."' WHERE universityID = '".$ID."'", True);
         }
     }

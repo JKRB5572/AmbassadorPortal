@@ -34,43 +34,71 @@ function updatePage(){
 
 
 function getActiveSection(type){
-    var activeSection = null;
+    var primary = document.getElementById("primary");
+    var workshop = document.getElementById("workshop");
+    var ambassadors = document.getElementById("ambassadors");
+    var location = document.getElementById("location");
+    var contact = document.getElementById("contact");
+    var equipment = document.getElementById("equipment");
+    var additionalInformation = document.getElementById("additionalInformation");
 
-    if(document.getElementById("primary").style.display != "none"){
-        activeSection = 1;
-        document.getElementById("sectionName").innerHTML = "Basic Details";
+    var sectionName = document.getElementById("sectionName");
+
+
+    if(primary){
+        if(primary.style.display != "none"){
+            sectionName.innerHTML = "Basic Details";
+            return 1;
+        }
     }
-    else if(document.getElementById("location").style.display != "none"){
-        activeSection = 2;
-        document.getElementById("sectionName").innerHTML = "Location";
+    if(workshop){
+        if(workshop.style.display != "none"){
+            sectionName.innerHTML = "Workshop Details";
+            return 2;
+        }
     }
-    else if(document.getElementById("class").style.display != "none"){
-        activeSection = 3;
-        document.getElementById("sectionName").innerHTML = "Class Details";
+    if(ambassadors){
+        if(ambassadors.style.display != "none"){
+            sectionName.innerHTML = "Ambassadors";
+            return 3;
+        }
     }
-    else if(document.getElementById("ambassadors").style.display != "none"){
-        activeSection = 4;
-        document.getElementById("sectionName").innerHTML = "Ambassadors";
+    if(location){
+        if(location.style.display != "none"){
+            sectionName.innerHTML = "Location";
+            return 4;
+        }
     }
-    else if(document.getElementById("contact").style.display != "none"){
-        activeSection = 5;
-        document.getElementById("sectionName").innerHTML = "Contact Details";
+    if(contact){
+        if(contact.style.display != "none"){
+            sectionName.innerHTML = "Contact Details";
+            return 5;
+        }
     }
-    else if(document.getElementById("equipment").style.display != "none"){
-        activeSection = 6;
-        document.getElementById("sectionName").innerHTML = "Equipment";
+    if(equipment){
+        if(equipment.style.display != "none"){
+            sectionName.innerHTML = "Equipment";
+            return 6;
+        }
     }
-    else if(document.getElementById("additionalInformation").style.display != "none"){
-        activeSection = 7;
-        document.getElementById("sectionName").innerHTML = "Additional Information";
+    if(additionalInformation){
+        if(additionalInformation.style.display != "none"){
+            sectionName.innerHTML = "Additional Information";
+            return 7;
+        }
     }
 
-    if(type == "string"){
-        var dictionary = ["primary", "location", "class", "ambassadors", "contact", "equipment", "additionalInformation"];
+    return -1;
+
+}
+
+
+function getActiveSectionAsString(){
+    var activeSection = getActiveSection();
+
+    if(activeSection != -1){
+        var dictionary = ["primary", "workshop", "ambassadors", "location", "contact", "equipment", "additionalInformation"];
         return dictionary[activeSection - 1];
-    }
-    else{
-        return activeSection;
     }
 }
 
@@ -82,11 +110,11 @@ function checkForErrors(){
         eventName: null,
         fundingSource: null,
         eventType: null,
-        postcode: null,
-        className: null,
-        classSize: null,
+        numberOfParticipants: null,
+        yearGroup: null,
         numberOfAmbassadors: null,
-        reportLocation: null
+        reportLocation: null,
+        postcode: null
     };
 
     var regExpName = /^\w/;
@@ -115,6 +143,50 @@ function checkForErrors(){
         }
     }
 
+
+    var regExpNumberOfParticipants = /(^[1-9]$)|(^[1-9][0-9]$)|(^[1-4][0-9][0-9]$)|(^500$)/;
+    if(document.getElementById("numberOfParticipants")){
+        if(document.getElementById("numberOfParticipants").value != "" && regExpNumberOfParticipants.test(document.getElementById("numberOfParticipants").value) == false){
+            errors.numberOfErrors++;
+            errors.numberOfParticipants = "An invalid number of participants has been entered";
+        }
+    }
+
+    if(getActiveSection() >= 3){
+        if(document.getElementById("eventType").value == "Primary School"){
+            if($('#yearGroupPrimarySchool').find(':checked').length == 0){
+                errors.numberOfErrors++;
+                errors.yearGroup = "No year group has been selected";
+                changePage(getActiveSectionAsString(), "workshop");
+            }
+        }
+        else if(document.getElementById("eventType").value == "Secondary School"){
+            if($('#yearGroupSecondarySchool').find(':checked').length == 0){
+                errors.numberOfErrors++;
+                errors.yearGroup = "No year group has been selected";
+                changePage(getActiveSectionAsString(), "workshop");
+            }
+        }
+
+    }
+
+
+    var regExpNoAmbassadors = /(^[1-9]$)|(^[1-4][0-9]$)|(^50$)/;
+    if(document.getElementById("numberNeeded")){
+        if(document.getElementById("numberNeeded").value != "" && regExpNoAmbassadors.test(document.getElementById("numberNeeded").value) == false){
+            errors.numberOfErrors++;
+            errors.numberOfAmbassadors = "An invalid number of ambassadors has been entered";
+        }
+    }
+
+    if(document.getElementById("reportLocation")){
+        if(document.getElementById("reportLocation").value != "" && regExpName.test(document.getElementById("reportLocation").value) == false){
+            errors.numberOfErrors++;
+            errors.reportLocation = "An invalid report location has been entered";
+        }
+    }
+
+
     var regExpPostcode = /^[A-Z]{2}[0-9]{2}\ [0-9][A-Z]{2}$/;
     if(document.getElementById("postcode")){
         if(document.getElementById("postcode").value != ""){
@@ -127,36 +199,6 @@ function checkForErrors(){
                 errors.numberOfErrors++;
                 errors.postcode = "An invalid postcode has been entered";          
             }
-        }
-    }
-
-    if(document.getElementById("className")){
-        if(document.getElementById("className").value != "" && regExpName.test(document.getElementById("className").value) == false){
-            errors.numberOfErrors++;
-            errors.className = "An invalid class name has been entered";
-        }
-    }
-
-    var regExpClassSize = /(^[1-9]$)|(^[1-9][0-9]$)|(^1[0-9][0-9]$)|(^2[0-4][0-9]$)|(^250$)/;
-    if(document.getElementById("classSize")){
-        if(document.getElementById("classSize").value != "" && regExpClassSize.test(document.getElementById("classSize").value) == false){
-            errors.numberOfErrors++;
-            errors.classSize = "An invalid class size has been entered";
-        }
-    }
-
-    var regExpNoAmbassadors = /(^1[0-9]$)|(^[1-9]$)|(^20$)/;
-    if(document.getElementById("numberNeeded")){
-        if(document.getElementById("numberNeeded").value != "" && regExpNoAmbassadors.test(document.getElementById("numberNeeded").value) == false){
-            errors.numberOfErrors++;
-            errors.numberOfAmbassadors = "An invalid number of ambassadors has been entered";
-        }
-    }
-
-    if(document.getElementById("reportLocation")){
-        if(document.getElementById("reportLocation").value != "" && regExpName.test(document.getElementById("reportLocation").value) == false){
-            errors.numberOfErrors++;
-            errors.reportLocation = "An invalid report location has been entered";
         }
     }
 
@@ -175,20 +217,20 @@ function printErrorMessages(errors){
     if(errors.eventType !== null){
         errorOutput += "<li>" + errors.eventType + "</li>";
     }
-    if(errors.postcode !== null){
-        errorOutput += "<li>" + errors.postcode + "</li>";
+    if(errors.numberOfParticipants !== null){
+        errorOutput += "<li>" + errors.numberOfParticipants + "</li>";
     }
-    if(errors.className !== null){
-        errorOutput += "<li>" + errors.className + "</li>";
-    }
-    if(errors.classSize !== null){
-        errorOutput += "<li>" + errors.classSize + "</li>";
+    if(errors.yearGroup !== null){
+        errorOutput += "<li>" + errors.yearGroup + "</li>";
     }
     if(errors.numberOfAmbassadors !== null){
         errorOutput += "<li>" + errors.numberOfAmbassadors + "</li>";
     }
     if(errors.reportLocation !== null){
         errorOutput += "<li>" + errors.reportLocation + "</li>";
+    }
+    if(errors.postcode !== null){
+        errorOutput += "<li>" + errors.postcode + "</li>";
     }
     errorOutput += "</ul>";
     return errorOutput;
@@ -276,64 +318,67 @@ function updateProgressBarSymbol(errors){
     }
 
 
-    //Check event address complete
-    if(errors.postcode !== null){
+    //Check workshop details complete
+    if(errors.yearGroup !== null || errors.numberOfParticipants !== null){
         document.getElementById("section2").className = "fa fa-exclamation-circle";
-    }
-    else if(
-        document.getElementById("address1").value &&
-        document.getElementById("postcode").value &&
-        document.getElementById("transport").value 
-    ){
-        if(document.getElementById("county").value){
-            document.getElementById("section2").className = "fa fa-circle"; 
-        }
-        else{
-            document.getElementById("section2").className = "fa fa-circle-thin";
-            informationStatus.preferredInformationProvided = false;
-        } 
-    }
-    else{
-        document.getElementById("section2").className = "fa fa-circle-thin";
-        informationStatus.requiredInformationProvided = false;
-    }
-
-
-    //Check class details complete
-    if(errors.className !== null || errors.classSize !== null){
-        document.getElementById("section3").className = "fa fa-exclamation-circle";
     }
     else{
         if(isCardiffEvent(document.getElementById("eventType").value) === false){
-
-            if(
-                document.getElementById("level").value &&
-                document.querySelectorAll('input[type="checkbox"]:checked').length > 0
-            ){     
-                document.getElementById("section3").className = "fa fa-circle";
+            if($('#eventTopics').find(':checked').length > 0){    
+                document.getElementById("section2").className = "fa fa-circle";
             }
             else{
-                document.getElementById("section3").className = "fa fa-circle-thin";
+                document.getElementById("section2").className = "fa fa-circle-thin";
                 informationStatus.requiredInformationProvided = false;
-            } 
-        }  
+            }
+        }
+        else{
+            document.getElementById("section2").className = "fa fa-circle-thin";
+            informationStatus.requiredInformationProvided = false;
+        }
     }
 
 
     //Check ambassador details complete
     if(errors.numberOfAmbassadors !== null || errors.reportLocation !== null){
-        document.getElementById("section4").className = "fa fa-exclamation-circle";
+        document.getElementById("section3").className = "fa fa-exclamation-circle";
     }
     else if(
         document.getElementById("numberNeeded").value >= 1 &&
         document.getElementById("reportLocation").value 
     ){
         if(document.getElementById("leadAmbassador").value){
-            document.getElementById("section4").className = "fa fa-circle";   
+            document.getElementById("section3").className = "fa fa-circle";   
         }
         else{
             informationStatus.preferredInformationProvided = false;
         }
+    }
+    else{
+        document.getElementById("section3").className = "fa fa-circle-thin";
+        informationStatus.requiredInformationProvided = false;
+    }
+
+
+    //Check event address complete
+    if(errors.postcode !== null){
+        document.getElementById("section4").className = "fa fa-exclamation-circle";
+    }
+    else if(
+        ( document.getElementById("address1").value || document.getElementById("postcode").value ) &&
+        document.getElementById("transport").value 
+    ){
+        if(
+            document.getElementById("address1").value &&
+            document.getElementById("postcode").value &&
+            document.getElementById("county").value
+        ){
+            document.getElementById("section4").className = "fa fa-circle"; 
+        }
+        else{
+            document.getElementById("section4").className = "fa fa-circle-thin";
+            informationStatus.preferredInformationProvided = false;
+        } 
     }
     else{
         document.getElementById("section4").className = "fa fa-circle-thin";
@@ -373,22 +418,28 @@ function updateProgressBarSymbol(errors){
 function eventTypeUpdates(){
     var selection = document.getElementById("eventType").value;
     updateAddress(selection);
-    populateLevelOptions(selection);
-    removeTrainingRequirement(selection)
+    toggleYearGroup(selection);
+    removeTrainingRequirement(selection);
 }
 
 
 function updateAddress(selection){
-    if(isCardiffEvent(selection) === true){
-        var address1 = document.getElementById("address1");
-        var address2 = document.getElementById("address2");
-        var county = document.getElementById("county");
-        var postcode = document.getElementById("postcode");
+    var address1 = document.getElementById("address1");
+    var address2 = document.getElementById("address2");
+    var county = document.getElementById("county");
+    var postcode = document.getElementById("postcode");
 
+    if(isCardiffEvent(selection) === true){
         address1.value = "Queen's Building";
         address2.value = "Cardiff University";
         county.value = "Cardiff";
         postcode.value = "CF24 3AA";
+    }
+    else if(address1.value == "Queen's Building" && address2.value == "Cardiff University" && county.value == "Cardiff" && postcode.value == "CF24 3AA"){
+        address1.value = "";
+        address2.value = "";
+        county.value = "";
+        postcode.value = "";
     }
 }
 
@@ -415,41 +466,54 @@ function isCardiffEvent(selection){
 }
 
 
-function populateLevelOptions(selection){
-    var level = document.getElementById("level");
+function toggleYearGroup(selection){
 
     if(selection === "Primary School"){
-        level.disabled = false;
-        level.innerHTML = '<option value="">---</option><option value="KS1">KS1</option><option value="KS2 (Basic)">KS2 (Basic)</option><option value="KS2 (Advanced)">KS2 (Advanced)</option>';
-        level.style.backgroundColor = "white";
+        $('#yearGroupRow').show();
+        $('#yearGroupPrimarySchool').show();
+        $('#yearGroupSecondarySchool').hide();
+        $('#levelRow').hide();
     }
     else if(selection === "Secondary School"){
-        level.disabled = false;
-        level.innerHTML = '<option value="">---</option><option value="KS3">KS3</option><option value="KS4">KS4</option><option value="KS5">KS5</option>';
-        level.style.backgroundColor = "white";
+        $('#yearGroupRow').show();
+        $('#yearGroupPrimarySchool').hide();
+        $('#yearGroupSecondarySchool').show();
+        $('#levelRow').hide();
     }
-    else if(selection === "College"){
-        level.disabled = false;
-        level.innerHTML = '<option value="">---</option><option value="Level 2">Level 2</option><option value="Level 2">Level 3</option><option value="Level 4">Level 4</option><option value="Level 5">Level 5</option>';
-        level.style.backgroundColor = "white";
-    }
-    else if(selection === "CPD"){
-        level.disabled = false;
-        level.innerHTML = '<option value="">---</option><option value="KS2 Basic">KS2 (Basic)</option><option value="KS2 (Advanced)">KS2 (Advanced)</option><option value="KS3">KS3</option><option value="KS4">KS4</option><option value="KS5">KS5</option><option value="lLevel ">Level 2</option><option value="Level 3">Level 3</option><option value="Level 4">Level 4</option><option value="Level 5">Level 5</option>';
-        level.style.backgroundColor = "white";
-    }
-    else if(selection === "Other"){
-        level.disabled = false;
-        level.innerHTML = '<option value="">---</option><option value="KS2 (Basic)">KS2 (Basic)</option><option value="KS2 (Advanced)">KS2 (Advanced)</option><option value="KS3">KS3</option><option value="KS4">KS4</option><option value="KS5">KS5</option><option value="Level 2">Level 2</option><option value="Level 3">Level 3</option><option value="Level 4">Level 4</option><option value="Level 5">Level 5</option>';
-        level.style.backgroundColor = "white";
+    else if(selection === "CPD" || selection === "College"){
+        $('#yearGroupRow').hide();
+        $('#yearGroupPrimarySchool').hide();
+        $('#yearGroupSecondarySchool').hide();
+        $('#levelRow').show();
     }
     else{
-        level.disabled = true;
-        level.innerHTML = '';
-        level.style.backgroundColor = "lightgray";
+        $('#yearGroupRow').hide();
+        $('#yearGroupPrimarySchool').hide();
+        $('#yearGroupSecondarySchool').hide();
+        $('#levelRow').hide();
     }
 
-    level.selectedIndex = -1;
+    if(selection !== "Primary School"){
+        document.getElementById("fpCheckbox").checked = false;
+        document.getElementById("yr1Checkbox").checked = false;
+        document.getElementById("yr2Checkbox").checked = false;
+        document.getElementById("yr3Checkbox").checked = false;
+        document.getElementById("yr4Checkbox").checked = false;
+        document.getElementById("yr5Checkbox").checked = false;
+        document.getElementById("yr6Checkbox").checked = false;
+    }
+    if(selection !== "Secondary School"){
+        document.getElementById("yr7Checkbox").checked = false;
+        document.getElementById("yr8Checkbox").checked = false;
+        document.getElementById("yr9Checkbox").checked = false;
+        document.getElementById("yr10Checkbox").checked = false;
+        document.getElementById("yr11Checkbox").checked = false;
+        document.getElementById("yr12Checkbox").checked = false;
+        document.getElementById("yr13Checkbox").checked = false;
+    }
+    if(selection !== "CPD" && selection !== "CPD"){
+        document.getElementById("level").value = "";
+    }
 }
 
 

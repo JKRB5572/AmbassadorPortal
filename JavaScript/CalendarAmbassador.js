@@ -9,8 +9,8 @@ class Event {
         this.trainingRequired = trainingRequired;
         this.topicID = JSON.parse(topicID);
         this.topicString = topicString;
-        
-
+     
+    
         this.registeredToWork = function() {
             if(registeredEvents.indexOf(this.ID) > -1){
                 return true;
@@ -46,17 +46,19 @@ class Event {
             if(!this.topicID){
                 return "eligible";
             }
-            else if (this.trainingRequired != "Y") {
+            else if(this.trainingRequired != "Y"){
                 return "eligible";
             }
-            else {
+            else{
                 if(training){
-                    for (var i = 0; i < this.topicID.length; i++) {
-                        if (!training.includes(parseInt(this.topicID[i]))) {
-                            return "not-eligible";
+                    for(var i = 0; i < this.topicID.length; i++){
+                        if( topicsRequiringTraining.includes(this.topicID[i]) ){
+                            if( !training.includes(parseInt(this.topicID[i])) ){
+                                return "not-eligible";
+                            }
                         }
-                        return "eligible";
                     }
+                    return "eligible";
                 }
                 else{
                     return "not-eligible";
@@ -252,7 +254,7 @@ function previousMonth(){
             calendarMonth--;
         }
         populateCalendar(calendarMonth, calendarYear);
-        filterTopic();
+        filterEventType();
     }
 }
 
@@ -338,7 +340,7 @@ function addEvents(jsonObj){
         listViewContent += '</table>';
         document.getElementById('listView').innerHTML = listViewContent;
     }
-    filterTopic();
+    filterEventType();
     document.getElementById("loadingMoreSpinner").style.display = "none";
 }
 

@@ -30,13 +30,13 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
         $returnArray = array();
 
         foreach($monthsEvents as $event){
-            if($event["visibility"] == 0 || ($event["visibility"] == 1 && $accessLevel >= 1) || ($event["visibility"] == 2 && $accessLevel >= 2)){
+            if($event["visibility"] == 0 || ($event["visibility"] == 1 && $_SESSION["accessLevel"] >= 1) || ($event["visibility"] == 2 && $_SESSION["accessLevel"] >= 2)){
                 $addressInformation = sqlFetch("SELECT address1, postcode FROM EventLocation WHERE eventID = '".$event["eventID"]."'", "ASSOC");
                 $addressInformation = $addressInformation[0];
 
                 $trainingRequired = sqlFetch("SELECT trainingRequired FROM EventAmbassadors WHERE eventID = '".$event["eventID"]."'", "NUM");
 
-                $topic = sqlFetch("SELECT topic FROM EventClass WHERE eventID = '".$event["eventID"]."'", "NUM");
+                $topic = sqlFetch("SELECT topic FROM EventWorkshop WHERE eventID = '".$event["eventID"]."'", "NUM");
 
                 $event["address1"] = $addressInformation["address1"];
                 $event["postcode"] = $addressInformation["postcode"];
@@ -56,7 +56,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
                     "postcode" => decrypt($addressInformation["postcode"]),
                     "trainingRequired" => $trainingRequired[0][0],
                     "topicID" => $topic[0][0],
-                    "topicString" => echoEventTopics(fetchEventTopics($topic[0][0]), True),
+                    "topicString" => verboseList(fetchTopics($topic[0][0])),
                     "visibility" => $event["visibility"]
                 );
             }

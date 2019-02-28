@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                 
                                 if(strlen($universityID) == 8){
-                                    $universityID = substr($substring, 1);
+                                    $universityID = substr($universityID, 1);
                                 }
 
                                 //Check student number is 7 digits
@@ -95,8 +95,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     }
                                 }
                                 else{
-                                    echo "ID:{$universityID}/";
-                                    echo strlen($universityID);
                                     $errorsWithRow++;
                                     $errorsAddMultipleAmbassadors .= "Error in row {$row}: ".$data[0]." is an invalid university ID.<br/>";
                                 }
@@ -124,7 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 }
 
                                 //Check forename
-                                if(!preg_match("//", $data[3])){
+                                if(!preg_match("/^[A-Z][a-z]+(|(\ [A-Z][a-z]+)+)$/", $data[3])){
                                     $errorsWithRow++;
                                     $errorsAddMultipleAmbassadors .= "Error in row {$row}: ".$data[3]." is an invalid forename.<br/>";
                                 }
@@ -228,12 +226,12 @@ function validateSubmit(){
     }
 
     var surname = document.getElementById("surname").value;
-    if(!surname.match(/^[A-Z]([a-z]+|[a-z]+\-[A-Z][a-z]+)$/)){
+    if(!surname.match(/^[A-Z][a-z]+(|\-[A-Z][a-z]+)$/)){
         errorText += "Please enter a valid surname<br/>";
     }
 
     var forename = document.getElementById("forename").value;
-    if(!forename.match(/^[A-Z][a-z]+$/)){
+    if(!forename.match(/^[A-Z][a-z]+(|(\ [A-Z][a-z]+)+)$/)){
         errorText += "Please enter a valid forename<br/>";
     }
 
@@ -302,8 +300,7 @@ function validateSubmit(){
                 <td><select id="programOfStudy" name="programOfStudy">
                         <option value="4JVD">Applied Software Engineering (BSc)</option>
                         <option value="G400">Computer Science (BSc)</option>
-                        <option value="G401">Computer Science with a Year in Industry (BSc)</option>
-                        <option value="126V">Computer Science with a Year of Study Abroad (BSc)</option>
+                        <option value="G401">Computer Science with a Year in Industry (BSc)</option>G404
                         <option value="G404">Computer Science (MSci)</option>
                         <otpion value="CSPD">Computer Science PhD</option>
                         <option value="OTHR">Other Degree Scheme</option>

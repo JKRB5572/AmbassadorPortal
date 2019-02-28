@@ -59,7 +59,7 @@ function eventDetails($type, $topic, $level){
     if($type){
         $returnString .= decrypt($type);
         if($topic){
-            $returnString .= "<br/><em>".echoEventTopics(fetchEventTopics($topic), True)."</em>";
+            $returnString .= "<br/><em>".verboseList(fetchTopics($topic))."</em>";
         }
         if($level){
             $returnString .= "<br/>".$level;
@@ -67,7 +67,7 @@ function eventDetails($type, $topic, $level){
     }
 
     else if($topic){
-        $returnString .= "<em>".echoEventTopics(fetchEventTopics($topic), True)."</em>";
+        $returnString .= "<em>".verboseList(fetchTopcis($topic))."</em>";
         if($level){
             $returnString .= "<br/>".$level;
         }
@@ -100,17 +100,17 @@ function listAmbassadors($assignedAmbassadors){
 }
 
 
-function classDetails($contactName, $className){
+function classDetails($contactName, $yearGroup){
     $returnString = "<td>";
 
-    if($contactName && $className){
-        $returnString .= decrypt($contactName)."<br/><em>".decrypt($className)."</em>";
+    if($contactName && $yearGroup){
+        $returnString .= decrypt($contactName)."<br/><em>".decrypt($yearGroup)."</em>";
     }
     else if($contactName){
         $returnString .= decrypt($contactName);
     }
-    else if($className){
-        $returnString .= "<em>".decrypt($className)."</em>";
+    else if($yearGroup){
+        $returnString .= "<em>".decrypt($yearGroup)."</em>";
     }
 
     $returnString .= "</td>";
@@ -133,10 +133,10 @@ function resourcesRequired($resourcesRequired){
 <?php
 
 //SQL Fetch events from today onwards
-$upcomingEvents = sqlFetch("SELECT eventID, eventName, startTime, endTime, eventDate, type, address1, postcode, transport, level, topic, className, name AS contactName, resourcesRequired, additionalInformation
+$upcomingEvents = sqlFetch("SELECT eventID, eventName, startTime, endTime, eventDate, type, address1, postcode, transport, level, topic, yearGroup, name AS contactName, resourcesRequired, additionalInformation
 FROM EventPrimary
 JOIN EventLocation USING (eventID)
-JOIN EventClass USING (eventID)
+JOIN EventWorkshop USING (eventID)
 JOIN EventAmbassadors USING (eventID)
 JOIN EventContact USING (eventID)
 JOIN EventAdditionalInformation USING (eventID)
@@ -159,10 +159,10 @@ $lastYear = date_format($lastYear, "Y-m-d");
 
 //SQL Fetch events from last year to
 
-$previousEvents = sqlFetch("SELECT eventID, eventName, startTime, endTime, eventDate, type, address1, postcode, transport, level, topic, className, name AS contactName, resourcesRequired, additionalInformation
+$previousEvents = sqlFetch("SELECT eventID, eventName, startTime, endTime, eventDate, type, address1, postcode, transport, level, topic, yearGroup, name AS contactName, resourcesRequired, additionalInformation
 FROM EventPrimary
 JOIN EventLocation USING (eventID)
-JOIN EventClass USING (eventID)
+JOIN EventWorkshop USING (eventID)
 JOIN EventAmbassadors USING (eventID)
 JOIN EventContact USING (eventID)
 JOIN EventAdditionalInformation USING (eventID)
@@ -189,7 +189,7 @@ if(count($upcomingEvents) > 0){
             <th>Location</th>
             <th>Transport</th>
             <th>Event Details</th>
-            <th>Class Details</th>
+            <th>Workshop Details</th>
             <th>Ambassadors</th>
             <th>Resources Requried</th>
         </tr>";
@@ -206,7 +206,7 @@ if(count($upcomingEvents) > 0){
         echo location($event["address1"], $event["postcode"]);
         echo transport($event["transport"]);
         echo eventDetails($event["type"], $event["topic"], $event["level"]);
-        echo classDetails($event["contactName"], $event["className"]);
+        echo classDetails($event["contactName"], $event["yearGroup"]);
         echo listAmbassadors($assignedAmbassadors);
         echo resourcesRequired($event["resourcesRequired"]);
 

@@ -115,7 +115,7 @@ else{
             <label>Password</label><input name="password" type="password"><br/>
             <div style='text-align: center;'><input type="submit" value="Log in"></div>
     </form>
-    <p id="forgottenPassword"><a href='https://password.cardiff.ac.uk/public/ForgottenPassword'>Forgotten your password?</p>
+    <p id="forgottenPassword"><a href='https://password.cardiff.ac.uk/public/ForgottenPassword'>Forgotten your password?</a></p>
     </div><!-- login-form-->
 </div><!-- login-page -->
 

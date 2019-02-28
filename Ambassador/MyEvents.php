@@ -13,7 +13,7 @@ include "../PageComponents/Head.php";
 
 $upcomingEvents = sqlFetch("SELECT EventRegistration.*, EventPrimary.eventDate, eventName, level, topic, reportLocation
 FROM EventRegistration JOIN EventPrimary USING (eventID)
-JOIN EventClass USING (eventID)
+JOIN EventWorkshop USING (eventID)
 JOIN EventAmbassadors USING (eventID)
 WHERE requestedStartTime IS NOT NULL
 AND EventRegistration.universityID = '{$_SESSION["userID"]}'
@@ -44,7 +44,7 @@ THE BELOW SQL QUERY NEEDS TO BE RE-DONE FOR AMBASSADOR EVENT HISTORY
 $previousEvents = sqlFetch("SELECT EventRegistration.*, EventPrimary.eventDate, eventName, level, topic, reportLocation
 FROM EventRegistration
 JOIN EventPrimary USING (eventID)
-JOIN EventClass USING (eventID)
+JOIN EventWorkshop USING (eventID)
 JOIN EventAmbassadors USING (eventID)
 WHERE EventRegistration.universityID = '{$_SESSION["userID"]}' AND
 EventPrimary.eventDate BETWEEN CAST('{$lastYear}' AS datetime) AND CAST('{$yesterday}' AS datetime) 
@@ -89,10 +89,10 @@ if(count($upcomingEvents) > 0){
             <td>";
             
             if($event["topic"] && $event["level"]){
-                echo echoEventTopics(fetchEventTopics($event["topic"]))."<br/>".$event["level"];
+                echo verboseList(fetchTopics($event["topic"]))."<br/>".$event["level"];
             }
             else if($event["topic"]){
-                echo echoEventTopics(fetchEventTopics($event["topic"]));
+                echo verboseList(fetchTopics($event["topic"]));
             }
             else if($event["level"]){
                 echo $event["level"];
@@ -137,10 +137,10 @@ if(count($previousEvents) > 0){
             <td>";
             
             if($event["topic"] && $event["level"]){
-                echo echoEventTopics(fetchEventTopics($event["topic"]))."<br/>".$event["level"];
+                echo verboseList(fetchTopics($event["topic"]))."<br/>".$event["level"];
             }
             else if($event["topic"]){
-                echo echoEventTopics(fetchEventTopics($event["topic"]));
+                echo verboseList(fetchTopics($event["topic"]));
             }
             else if($event["level"]){
                 echo $event["level"];

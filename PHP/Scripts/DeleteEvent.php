@@ -11,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
     sqlDelete("DELETE FROM EventPrimary WHERE eventID = '".$eventID."'");
     sqlDelete("DELETE FROM EventLocation WHERE eventID = '".$eventID."'");
-    sqlDelete("DELETE FROM EventClass WHERE eventID = '".$eventID."'");
+    sqlDelete("DELETE FROM EventWorkshop WHERE eventID = '".$eventID."'");
     sqlDelete("DELETE FROM EventAmbassadors WHERE eventID = '".$eventID."'");
     sqlDelete("DELETE FROM EventContact WHERE eventID = '".$eventID."'");
 
